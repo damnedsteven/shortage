@@ -55,22 +55,23 @@ $grid = new EditableGrid();
 *  The second argument is the label that will be displayed in the header
 */
 $grid->addColumn('id', 'ID', 'integer', NULL, false); 
-$grid->addColumn('name', 'Name', 'string');  
-$grid->addColumn('firstname', 'Firstname', 'string');  
-$grid->addColumn('age', 'Age', 'integer');  
-$grid->addColumn('height', 'Height', 'float');  
-/* The column id_country and id_continent will show a list of all available countries and continents. So, we select all rows from the tables */
-$grid->addColumn('id_continent', 'Continent', 'string' , fetch_pairs($mysqli,'SELECT id, name FROM continent'),true);  
-$grid->addColumn('id_country', 'Country', 'string', fetch_pairs($mysqli,'SELECT id, name FROM country'),true );  
-$grid->addColumn('email', 'Email', 'email');                                               
-$grid->addColumn('freelance', 'Freelance', 'boolean');  
-$grid->addColumn('lastvisit', 'Lastvisit', 'date');  
-$grid->addColumn('website', 'Website', 'string');  
-$grid->addColumn('action', 'Action', 'html', NULL, false, 'id');  
+$grid->addColumn('pn', 'Shortage P/N', 'string');  
+$grid->addColumn('ctrl_id', 'Ctrl ID', 'string');  
+$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer');
 
-$mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'demo';
+// $grid->addColumn('height', 'Height', 'float');  
+/* The column id_country and id_continent will show a list of all available countries and continents. So, we select all rows from the tables */
+// $grid->addColumn('id_continent', 'Continent', 'string' , fetch_pairs($mysqli,'SELECT id, name FROM continent'),true);  
+// $grid->addColumn('id_country', 'Country', 'string', fetch_pairs($mysqli,'SELECT id, name FROM country'),true );  
+// $grid->addColumn('email', 'Email', 'email');                                               
+// $grid->addColumn('freelance', 'Freelance', 'boolean');   
+// $grid->addColumn('website', 'Website', 'string');  
+$grid->addColumn('lastupdated', 'Updated', 'datetime'); 
+$grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
+
+$mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'master';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastvisit, "%d/%m/%Y") as lastvisit FROM '.$mydb_tablename );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%d/%m/%Y") as lastupdated FROM '.$mydb_tablename );
 $mysqli->close();
 
 // send data to the browser

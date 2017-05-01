@@ -17,14 +17,14 @@ $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 $mysqli->real_connect($config['db_host'],$config['db_user'],$config['db_password'],$config['db_name']); 
 
 // Get all parameter provided by the javascript
-$name = $mysqli->real_escape_string(strip_tags($_POST['name']));
-$firstname = $mysqli->real_escape_string(strip_tags($_POST['firstname']));
+$pn = $mysqli->real_escape_string(strip_tags($_POST['pn']));
+$shortage_qty = $mysqli->real_escape_string(strip_tags($_POST['shortage_qty']));
 $tablename = $mysqli->real_escape_string(strip_tags($_POST['tablename']));
 
 $return=false;
-if ( $stmt = $mysqli->prepare("INSERT INTO ".$tablename."  (name, firstname) VALUES (  ?, ?)")) {
+if ( $stmt = $mysqli->prepare("INSERT INTO ".$tablename."  (pn, shortage_qty) VALUES (  ?, ?)")) {
 
-	$stmt->bind_param("ss", $name, $firstname);
+	$stmt->bind_param("ss", $pn, $shortage_qty);
     $return = $stmt->execute();
 	$stmt->close();
 }             

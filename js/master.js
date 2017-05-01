@@ -49,7 +49,7 @@ function updateCellValue(editableGrid, rowIndex, columnIndex, oldValue, newValue
 
 function DatabaseGrid() 
 { 
-	this.editableGrid = new EditableGrid("demo", {
+	this.editableGrid = new EditableGrid("master", {
 		enableSort: true,
 	    // define the number of row visible by page
       	pageSize: 50,
@@ -66,7 +66,7 @@ function DatabaseGrid()
 
 DatabaseGrid.prototype.fetchGrid = function()  {
 	// call a PHP script to get the data
-	this.editableGrid.loadJSON("loaddata.php?db_tablename=demo");
+	this.editableGrid.loadJSON("loaddata.php?db_tablename=master");
 };
 
 DatabaseGrid.prototype.initializeGrid = function(grid) {
@@ -159,8 +159,8 @@ DatabaseGrid.prototype.addRow = function(id)
 		dataType: "html",
 		data: {
 			tablename : self.editableGrid.name,
-			name:  $("#name").val(),
-			firstname:  $("#firstname").val()
+			pn:  $("#pn").val(),
+			shortage_qty:  $("#shortage_qty").val()
 		},
 		success: function (response) 
 		{ 
@@ -168,8 +168,8 @@ DatabaseGrid.prototype.addRow = function(id)
    
                 // hide form
                 showAddForm();   
-        		$("#name").val('');
-                $("#firstname").val('');
+        		$("#pn").val('');
+                $("#shortage_qty").val('');
 			    
                 alert("Row added : reload model");
                 self.fetchGrid();

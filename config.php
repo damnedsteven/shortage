@@ -14,7 +14,7 @@
 
 // Define here you own values
 $config = array(
-	"db_name" => "test",
+	"db_name" => "shortage",
 	"db_user" => "root",
 	"db_password" => "mysql",
 	"db_host" => "16.187.224.28"
