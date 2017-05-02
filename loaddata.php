@@ -55,9 +55,10 @@ $grid = new EditableGrid();
 *  The second argument is the label that will be displayed in the header
 */
 $grid->addColumn('id', 'ID', 'integer', NULL, false); 
-$grid->addColumn('pn', 'Shortage P/N', 'string');  
-$grid->addColumn('ctrl_id', 'Ctrl ID', 'string');  
+$grid->addColumn('pn', 'Shortage P/N', 'string', NULL, false);  
+$grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
 $grid->addColumn('shortage_qty', 'Shortage QTY', 'integer');
+$grid->addColumn('orderdate', 'Orderdate', 'date'); 
 
 // $grid->addColumn('height', 'Height', 'float');  
 /* The column id_country and id_continent will show a list of all available countries and continents. So, we select all rows from the tables */
@@ -66,12 +67,12 @@ $grid->addColumn('shortage_qty', 'Shortage QTY', 'integer');
 // $grid->addColumn('email', 'Email', 'email');                                               
 // $grid->addColumn('freelance', 'Freelance', 'boolean');   
 // $grid->addColumn('website', 'Website', 'string');  
-$grid->addColumn('lastupdated', 'Updated', 'datetime'); 
+$grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
 $grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'master';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%d/%m/%Y") as lastupdated FROM '.$mydb_tablename );
+$result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename );
 $mysqli->close();
 
 // send data to the browser
