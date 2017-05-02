@@ -13,6 +13,8 @@
  */
 -->
 
+<?php require "login/loginheader.php"; ?>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -26,15 +28,16 @@
 	
 	<body>
 		<div id="wrap">
-		<h1>ESSN Material Shortage</h1> 
+		<h1>ESSN Material Shortage<a href="login/logout.php"><i class="fa fa-sign-out"></i></a></h1> 
 		
 			<!-- Feedback message zone -->
 			<div id="message"></div>
 
             <div id="toolbar">
-              <input type="text" id="filter" name="filter" placeholder="Filter :type any text here"  />
+              <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  />
               <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add new row</a>
             </div>
+			
 			<!-- Grid contents -->
 			<div id="tablecontent"></div>
 		
