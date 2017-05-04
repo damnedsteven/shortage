@@ -54,21 +54,36 @@ $grid = new EditableGrid();
 *  Add columns. The first argument of addColumn is the name of the field in the databse. 
 *  The second argument is the label that will be displayed in the header
 */
-$grid->addColumn('id', 'ID', 'integer', NULL, false); 
-$grid->addColumn('pn', 'Shortage P/N', 'string', NULL, false);  
+// $grid->addColumn('id', 'ID', 'integer', NULL, false);
+$grid->addColumn('publish', 'Publish Time', 'datetime', NULL, false); 
+$grid->addColumn('pn_type', 'Passthrough', 'boolean', NULL, false);  
+$grid->addColumn('orderdate', 'Order Date', 'date', NULL, false);
+$grid->addColumn('bkpl', 'BKPL Time', 'datetime', NULL, false); 
+$grid->addColumn('rtp', 'RTP Time', 'datetime', NULL, false); 
+$grid->addColumn('so', 'Sales Order', 'string', NULL, false); 
+$grid->addColumn('so_item', 'Sales Order Item', 'int', NULL, false);
+$grid->addColumn('product', 'Product', 'string', NULL, false);
+$grid->addColumn('product_pl', 'Product PL', 'string', NULL, false);
+$grid->addColumn('bpo', 'BPO', 'string', NULL, false);
+$grid->addColumn('plo', 'PLO', 'string', NULL, false);
+$grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
 $grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
-$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer');
-$grid->addColumn('orderdate', 'Orderdate', 'date'); 
-
+$grid->addColumn('sales_area', 'Sales Area', 'string', NULL, false); 
+$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
+$grid->addColumn('required_qty', 'Required QTY', 'integer', NULL, false);
+$grid->addColumn('remark_wh', 'Remarks By WH', 'string'); 
+$grid->addColumn('status', 'Status', 'string'); 
+$grid->addColumn('status_update', 'Status Update', 'string'); 
+$grid->addColumn('destination', 'Destination', 'string', array('EMCN', 'Hub')); 
+$grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string'); 
+$grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string'); 
+$grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
+$grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 // $grid->addColumn('height', 'Height', 'float');  
 /* The column id_country and id_continent will show a list of all available countries and continents. So, we select all rows from the tables */
 // $grid->addColumn('id_continent', 'Continent', 'string' , fetch_pairs($mysqli,'SELECT id, name FROM continent'),true);  
 // $grid->addColumn('id_country', 'Country', 'string', fetch_pairs($mysqli,'SELECT id, name FROM country'),true );  
-// $grid->addColumn('email', 'Email', 'email');                                               
-// $grid->addColumn('freelance', 'Freelance', 'boolean');   
-// $grid->addColumn('website', 'Website', 'string');  
-$grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
-$grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
+// $grid->addColumn('email', 'Email', 'email');                                                
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'master';
                                                                        

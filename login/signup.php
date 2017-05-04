@@ -26,6 +26,12 @@
         <h2 class="form-signup-heading">Register</h2>
         <input name="newuser" id="newuser" type="text" class="form-control" placeholder="Username" autofocus>
         <input name="email" id="email" type="text" class="form-control" placeholder="Email">
+		<select name="usergroup" id="usergroup" class="form-control">
+			<option value="TBD">Choose User Group</option>
+			<option value="WH">WH</option>
+			<option value="PB">Planner/Buyer</option>
+			<option value="Other">Other</option>
+		</select>
 <br>
         <input name="password1" id="password1" type="password" class="form-control" placeholder="Password">
         <input name="password2" id="password2" type="password" class="form-control" placeholder="Repeat Password">
