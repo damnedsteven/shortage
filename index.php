@@ -11,9 +11,10 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://editablegrid.net/license
  */
+ ?php require "login/loginheader.php"; ?>
 -->
 
-<?php require "login/loginheader.php"; ?>
+
 
 <html>
 	<head>

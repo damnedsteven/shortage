@@ -22,7 +22,7 @@ $tablename = $mysqli->real_escape_string(strip_tags($_POST['tablename']));
 
 // This very generic. So this script can be used to update several tables.
 $return=false;
-if ($stmt = $mysqli->prepare("INSERT INTO ".$tablename." (pn, shortage_qty) SELECT pn, shortage_qty FROM ".$tablename." WHERE id = ?")) {
+if ($stmt = $mysqli->prepare("INSERT INTO ".$tablename." (pn, ctrl_id, shortage_qty) SELECT pn, ctrl_id, shortage_qty FROM ".$tablename." WHERE id = ?")) {
 	$stmt->bind_param("i", $id);
 	$return = $stmt->execute();
 	$stmt->close();

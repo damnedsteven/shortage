@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `master` (
   `shortage_reason_detail` varchar(100) DEFAULT NULL,
   `lastupdated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=501 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `master`

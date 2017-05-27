@@ -15,9 +15,9 @@
 // Define here you own values
 $config = array(
 	"db_name" => "shortage",
-	"db_user" => "root",
-	"db_password" => "mysql",
-	"db_host" => "16.187.224.28"
+	"db_user" => "yi",
+	"db_password" => "asdfqwer",
+	"db_host" => "16.187.230.200"
 );                
 
 error_reporting(E_ALL);
