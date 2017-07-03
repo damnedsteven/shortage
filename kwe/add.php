@@ -17,14 +17,15 @@ $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 $mysqli->real_connect($config['db_host'],$config['db_user'],$config['db_password'],$config['db_name']); 
 
 // Get all parameter provided by the javascript
-$id = $mysqli->real_escape_string(strip_tags($_POST['id']));
+$pn = $mysqli->real_escape_string(strip_tags($_POST['pn']));
+$shortage_qty = $mysqli->real_escape_string(strip_tags($_POST['shortage_qty']));
 $tablename = $mysqli->real_escape_string(strip_tags($_POST['tablename']));
 
-// This very generic. So this script can be used to update several tables.
 $return=false;
-if ($stmt = $mysqli->prepare("INSERT INTO ".$tablename." (plo, pn) SELECT plo, pn FROM ".$tablename." WHERE id = ?")) {
-	$stmt->bind_param("i", $id);
-	$return = $stmt->execute();
+if ( $stmt = $mysqli->prepare("INSERT INTO ".$tablename."  (pn, shortage_qty) VALUES (  ?, ?)")) {
+
+	$stmt->bind_param("ss", $pn, $shortage_qty);
+    $return = $stmt->execute();
 	$stmt->close();
 }             
 $mysqli->close();        

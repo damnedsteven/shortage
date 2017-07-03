@@ -54,31 +54,14 @@ $grid = new EditableGrid();
 *  Add columns. The first argument of addColumn is the name of the field in the databse. 
 *  The second argument is the label that will be displayed in the header
 */
-// $grid->addColumn('id', 'ID', 'integer', NULL, false);
-$grid->addColumn('publish', 'Publish Time', 'datetime', NULL, false); 
-$grid->addColumn('pfc', 'PF Category', 'string', array('PassThrough', 'ISS-Server', 'EVA', 'Kitting', 'MM-Kitting'), false);  
-// $grid->addColumn('orderdate', 'Order Date', 'date', NULL, false);
-$grid->addColumn('orderday', 'Order Date', 'string', NULL, false);
-$grid->addColumn('bkpl', 'BKPL Time', 'datetime', NULL, false); 
-$grid->addColumn('rtp', 'RTP Time', 'datetime', NULL, false); 
-$grid->addColumn('so', 'Sales Order', 'string', NULL, false); 
-$grid->addColumn('so_item', 'Sales Order Item', 'int', NULL, false);
-$grid->addColumn('product', 'Product', 'string', NULL, false);
-$grid->addColumn('product_pl', 'Product PL', 'string', NULL, false);
-$grid->addColumn('bpo', 'BPO', 'string', NULL, false);
-$grid->addColumn('plo', 'PLO', 'string', NULL, false);
 $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
-$grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
-$grid->addColumn('sales_area', 'Sales Area', 'string', NULL, false);
-$grid->addColumn('filled_qty', 'Filled QTY', 'integer', NULL, false); 
-$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
-$grid->addColumn('required_qty', 'Required QTY', 'integer', NULL, false);
-$grid->addColumn('remark_wh', 'Remarks By WH', 'string'); 
-$grid->addColumn('status', 'Status', 'string', array('Inactive', 'Active')); 
-$grid->addColumn('status_update', 'Status Update', 'string'); 
-$grid->addColumn('destination', 'Destination', 'string', array('EMCN', 'Hub')); 
-$grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string'); 
-$grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string'); 
+$grid->addColumn('arrival_qty', 'Arrival QTY', 'integer', NULL, false);
+$grid->addColumn('eta', 'ETA', 'date', NULL, false);
+$grid->addColumn('carrier', 'Carrier', 'string', array('KWE', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), false); 
+$grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
+$grid->addColumn('delivery', '实际送货日期', 'date');
+$grid->addColumn('delay_reason', '晚送原因', 'string');
+$grid->addColumn('vehicle_info', '到达车辆信息', 'string');
 $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
 // $grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 // $grid->addColumn('height', 'Height', 'float');  
@@ -87,9 +70,9 @@ $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);
 // $grid->addColumn('id_country', 'Country', 'string', fetch_pairs($mysqli,'SELECT id, name FROM country'),true );  
 // $grid->addColumn('email', 'Email', 'email');                                                
 
-$mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'master';
+$mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename);
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE carrier="0" AND eta=CURDATE()' );
 $mysqli->close();
 
 // send data to the browser

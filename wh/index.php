@@ -52,7 +52,7 @@
 		<script src="js/jquery-1.11.1.min.js" ></script>
         <!-- EditableGrid test if jQuery UI is present. If present, a datepicker is automatically used for date type -->
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-		<script src="js/master.js" ></script>
+		<script src="js/pn.js" ></script>
 
 		<script type="text/javascript">
 		
