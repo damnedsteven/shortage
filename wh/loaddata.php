@@ -54,22 +54,22 @@ $grid = new EditableGrid();
 *  Add columns. The first argument of addColumn is the name of the field in the databse. 
 *  The second argument is the label that will be displayed in the header
 */
-$grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
-$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
-$grid->addColumn('arrival_qty', 'Arrival QTY', 'integer', NULL, false);
+$grid->addColumn('pn', 'Part No.             ', 'string', NULL, false); 
+$grid->addColumn('shortage_qty', 'S-QTY', 'integer', NULL, false);
+$grid->addColumn('arrival_qty', 'A-QTY', 'integer', NULL, false);
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
-$grid->addColumn('remark', 'Remarks', 'string', NULL, false); 
-$grid->addColumn('carrier', 'Carrier', 'string', array('KWE', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), NULL, false); 
-$grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
+// $grid->addColumn('remark', 'Remark', 'string', NULL, false); 
+$grid->addColumn('carrier', 'Carrier         ', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), NULL, false); 
+$grid->addColumn('bill_number', '运单号     ', 'string', NULL, false); 
 
-$grid->addColumn('delivery', '实际送货日期', 'date', NULL, false); 
-$grid->addColumn('vehicle_info', '到达车辆信息', 'string', NULL, false);
+// $grid->addColumn('delivery', '实际送货日期', 'date', NULL, false); 
+// $grid->addColumn('vehicle_info', '到达车辆信息', 'string', NULL, false);
 $grid->addColumn('received', '抵达时间', 'date');     
-$grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);                                            
+// $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);                                            
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE eta=CURDATE()' );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE eta=CURDATE() AND received IS NULL' );
 $mysqli->close();
 
 // send data to the browser

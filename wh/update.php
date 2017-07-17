@@ -36,7 +36,7 @@ if ($coltype == 'date') {
 
 // This very generic. So this script can be used to update several tables.
 $return=false;
-if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ? WHERE id = ?")) {
+if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ? , status = 0 WHERE id = ?")) {
 	$stmt->bind_param("si",$value, $id);
 	$return = $stmt->execute();
 	$stmt->close();
@@ -45,7 +45,7 @@ if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ? WHERE 
 	// $return = $stmt->execute();
 	// $stmt->close();
 // }
-if ( $stmt = $mysqli->prepare("CALL p($id)")) {
+if ( $stmt = $mysqli->prepare("CALL q($id)")) {
 	$stmt->execute();
 	$stmt->close();
 }      

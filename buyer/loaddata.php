@@ -65,22 +65,23 @@ $grid = new EditableGrid();
 // $grid->addColumn('product_pl', 'Product PL', 'string', NULL, false);
 // $grid->addColumn('bpo', 'BPO', 'string', NULL, false);
 // $grid->addColumn('plo', 'PLO', 'string', NULL, false);
-$grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
+$grid->addColumn('is_copy', 'Copy#', 'integer', NULL, false);
+$grid->addColumn('pn', 'Part No.', 'string', NULL, false); 
 $grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
 $grid->addColumn('buyer_name', 'Buyer', 'string', NULL, false); 
-$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
-$grid->addColumn('pline_shortage_qty', 'Production', 'integer', NULL, false);
-$grid->addColumn('passthru_shortage_qty', 'PassThrough', 'integer', NULL, false);
-$grid->addColumn('earliest_bkpl', 'Earliest BKPL Time', 'datetime', NULL, false);
-$grid->addColumn('arrival_qty', 'Arrival QTY', 'integer');
+$grid->addColumn('shortage_qty', 'TTL-S', 'integer', NULL, false);
+$grid->addColumn('pline_shortage_qty', 'S-RAW', 'integer', NULL, false);
+$grid->addColumn('passthru_shortage_qty', 'S-OPT', 'integer', NULL, false);
+$grid->addColumn('earliest_bkpl', 'Earliest BKPL Time              ', 'datetime', NULL, false);
+$grid->addColumn('arrival_qty', 'Supp.Q', 'integer');
 $grid->addColumn('eta', 'ETA', 'date');
-$grid->addColumn('remark', 'Remarks', 'string'); 
-$grid->addColumn('carrier', 'Carrier', 'string', array('KWE', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other')); 
+$grid->addColumn('remark', 'Remark      ', 'string'); 
+$grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other')); 
 $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 
 $grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string', array('Normal Supply', 'Logistic issue-缺进口证', 'Logistic issue-捆绑有问题进口料', 'Logistic issue-海关查验', 'Logistic issue-仓单问题', 'Logistic issue-KWE送货延误', 'Logistic issue-others', 'Overdrop', 'Overdrop for weekend orders', 'JIT pull', 'HDD in local kitting relable process', 'Part conversion delayed', 'Vendor decommit delivery date', 'Earlier Ack date in SAP system', 'No reminder in SOS when schedule push out', 'Shipment damaged', 'Stock purge', 'BOM issue', 'Inventory GAP-Materials not return from 产线', 'Inventory GAP-Materials not locked by 产线', 'Inventory GAP-Materials not locked into CE by WH', 'Inventory GAP-Materials not locked for rework/sorting', 'Inventory GAP-System linkage issue/refresh issue', 'New shortage-materials occupied by late-drop orders', 'None of above')); 
 $grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string'); 
-$grid->addColumn('bill_number', '运单号', 'string'); 
-$grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
+$grid->addColumn('bill_number', '运单号     ', 'string'); 
+$grid->addColumn('lastupdated', 'Updated                             ', 'datetime', NULL, false); 
 $grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 // $grid->addColumn('height', 'Height', 'float');  
 /* The column id_country and id_continent will show a list of all available countries and continents. So, we select all rows from the tables */
@@ -90,7 +91,7 @@ $grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE status=1 AND received IS NULL ORDER BY pn' );
 $mysqli->close();
 
 // send data to the browser

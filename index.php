@@ -19,6 +19,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="cache-control" content="max-age=0" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+		<meta http-equiv="pragma" content="no-cache" />
+		
 		<title>ESSN Material Shortage</title>
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
 		<link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -55,7 +61,7 @@
 		<script src="js/master.js" ></script>
 
 		<script type="text/javascript">
-		
+			
             var datagrid = new DatabaseGrid();
 			window.onload = function() { 
 

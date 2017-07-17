@@ -42,7 +42,7 @@
             </div>
 			
 			<!-- Grid contents -->
-			<div id="tablecontent"></div>
+			<div id="tablecontent" class="fa-5x"></div>
 		
 			<!-- Paginator control -->
 			<div id="paginator"></div>

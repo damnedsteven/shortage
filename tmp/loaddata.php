@@ -70,33 +70,16 @@ $grid->addColumn('plo', 'PLO', 'string', NULL, false);
 $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
 $grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
 $grid->addColumn('sales_area', 'Sales Area', 'string', NULL, false);
+$grid->addColumn('filled_qty', 'Filled QTY', 'integer', NULL, false); 
 $grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
 $grid->addColumn('required_qty', 'Required QTY', 'integer', NULL, false);
-
-$grid->addColumn('filled_qty', 'Filled QTY', 'integer', NULL, false); 
-$grid->addColumn('arrival_qty', 'Supp.Q', 'integer');
-$grid->addColumn('eta', 'ETA', 'date', NULL, false);
-$grid->addColumn('remark', 'Remarks', 'string', NULL, false); 
-// $grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), NULL, false); 
-// $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 
-$grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string', array('Normal Supply', 'Logistic issue-缺进口证', 'Logistic issue-捆绑有问题进口料', 'Logistic issue-海关查验', 'Logistic issue-仓单问题', 'Logistic issue-KWE送货延误', 'Logistic issue-others', 'Overdrop', 'Overdrop for weekend orders', 'JIT pull', 'HDD in local kitting relable process', 'Part conversion delayed', 'Vendor decommit delivery date', 'Earlier Ack date in SAP system', 'No reminder in SOS when schedule push out', 'Shipment damaged', 'Stock purge', 'BOM issue', 'Inventory GAP-Materials not return from 产线', 'Inventory GAP-Materials not locked by 产线', 'Inventory GAP-Materials not locked into CE by WH', 'Inventory GAP-Materials not locked for rework/sorting', 'Inventory GAP-System linkage issue/refresh issue', 'New shortage-materials occupied by late-drop orders', 'None of above'), NULL, false); 
-// $grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string', NULL, false); 
-// $grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
-
-// $grid->addColumn('delivery', '实际送货日期', 'date', NULL, false); 
-// $grid->addColumn('delay_reason', '晚送原因', 'string', NULL, false);
-// $grid->addColumn('vehicle_info', '到达车辆信息', 'string', NULL, false);
-
-// $grid->addColumn('received', '抵达时间', 'date', NULL, false);     
+$grid->addColumn('remark_wh', 'Remarks By WH', 'string'); 
+$grid->addColumn('status', 'Status', 'string', array('Inactive', 'Active')); 
+$grid->addColumn('status_update', 'Status Update', 'string'); 
+$grid->addColumn('destination', 'Destination', 'string', array('EMCN', 'Hub')); 
+$grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string'); 
+$grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string'); 
 $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
-
-// $grid->addColumn('remark_wh', 'Remarks By WH', 'string'); 
-// $grid->addColumn('status', 'Status', 'string', array('Inactive', 'Active')); 
-// $grid->addColumn('status_update', 'Status Update', 'string'); 
-// $grid->addColumn('destination', 'Destination', 'string', array('EMCN', 'Hub')); 
-// $grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string'); 
-// $grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string'); 
-// $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false); 
 // $grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 // $grid->addColumn('height', 'Height', 'float');  
 /* The column id_country and id_continent will show a list of all available countries and continents. So, we select all rows from the tables */
@@ -106,20 +89,7 @@ $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'master';
                                                                        
-// $result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename);
-$result = $mysqli->query('
-	SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated 
-	FROM master m LEFT JOIN (
-		SELECT *
-		FROM pn p0 
-		WHERE eta=(
-			SELECT MIN(eta)
-			FROM pn 
-			WHERE pn=p0.pn
-		)
-	) p ON m.pn=p.pn 
-	WHERE m.status="1" AND p.received IS NULL
-');
+$result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename);
 $mysqli->close();
 
 // send data to the browser

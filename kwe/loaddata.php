@@ -57,7 +57,7 @@ $grid = new EditableGrid();
 $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
 $grid->addColumn('arrival_qty', 'Arrival QTY', 'integer', NULL, false);
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
-$grid->addColumn('carrier', 'Carrier', 'string', array('KWE', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), false); 
+$grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), false); 
 $grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
 $grid->addColumn('delivery', '实际送货日期', 'date');
 $grid->addColumn('delay_reason', '晚送原因', 'string');
@@ -72,7 +72,7 @@ $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE carrier="0" AND eta=CURDATE()' );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE carrier="0" AND received IS NULL AND eta=CURDATE()' );
 $mysqli->close();
 
 // send data to the browser

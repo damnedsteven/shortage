@@ -268,8 +268,8 @@ class EditableGrid {
 		$info = array(
 			'unit' => '',
 			'precision' => -1,
-			'decimal_point' => ',',
-			'thousands_separator' => '.',
+			'decimal_point' => '.',
+			'thousands_separator' => ',',
 			'unit_before_number' => false,
 			'nansymbol' => ''
 			);
