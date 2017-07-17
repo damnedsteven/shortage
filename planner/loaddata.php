@@ -116,7 +116,7 @@ $result = $mysqli->query('
 			SELECT MIN(eta)
 			FROM pn 
 			WHERE pn=p0.pn
-		)
+		) or eta IS NULL
 	) p ON m.pn=p.pn_ 
 	WHERE m.status="1" AND p.received IS NULL
 ');
