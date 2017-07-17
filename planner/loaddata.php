@@ -110,14 +110,14 @@ $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablen
 $result = $mysqli->query('
 	SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated 
 	FROM master m LEFT JOIN (
-		SELECT *
+		SELECT pn AS pn_, arrival_qty, eta, remark, shortage_reason, received
 		FROM pn p0 
 		WHERE eta=(
 			SELECT MIN(eta)
 			FROM pn 
 			WHERE pn=p0.pn
 		)
-	) p ON m.pn=p.pn 
+	) p ON m.pn=p.pn_ 
 	WHERE m.status="1" AND p.received IS NULL
 ');
 $mysqli->close();
