@@ -42,7 +42,7 @@
             </div>
 			
 			<!-- Grid contents -->
-			<div id="tablecontent"></div>
+			<div id="tablecontent" class="fa-5x"></div>
 		
 			<!-- Paginator control -->
 			<div id="paginator"></div>
@@ -77,7 +77,6 @@
                 $("#addbutton").click(function() {
                   datagrid.addRow();
                 });
-
         
 			}; 
 			
@@ -98,7 +97,6 @@
 				}
 				return localStorage.getItem(v);
 			};
-		
 		</script>
 
         <!-- simple form, used to add a new row -->

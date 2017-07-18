@@ -37,8 +37,8 @@
 			<div id="message"></div>
 
             <div id="toolbar">
-              <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  onkeyup='saveValue(this);'/>
-              <!-- <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add new row</a> -->
+              <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  />
+              <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add new row</a>
             </div>
 			
 			<!-- Grid contents -->
@@ -52,7 +52,7 @@
 		<script src="js/jquery-1.11.1.min.js" ></script>
         <!-- EditableGrid test if jQuery UI is present. If present, a datepicker is automatically used for date type -->
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-		<script src="js/pn.js" ></script>
+		<script src="js/master.js" ></script>
 
 		<script type="text/javascript">
 		
@@ -80,25 +80,6 @@
 
         
 			}; 
-			
-			document.getElementById("filter").value = getSavedValue("filter");   // set the value to this input
-			/* Here you can add more inputs to set value. if it's saved */
-
-			//Save the value function - save it to localStorage as (ID, VALUE)
-			function saveValue(e){
-				var id = e.id;  // get the sender's id to save it . 
-				var val = e.value; // get the value. 
-				localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
-			};
-
-			//get the saved value function - return the value of "v" from localStorage. 
-			function getSavedValue  (v){
-				if (localStorage.getItem(v) === null) {
-					return "";// You can change this to your defualt value. 
-				}
-				return localStorage.getItem(v);
-			};
-		
 		</script>
 
         <!-- simple form, used to add a new row -->

@@ -19,12 +19,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta http-equiv="cache-control" content="max-age=0" />
-		<meta http-equiv="cache-control" content="no-cache" />
-		<meta http-equiv="expires" content="0" />
-		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-		<meta http-equiv="pragma" content="no-cache" />
-		
 		<title>ESSN Material Shortage</title>
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
 		<link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -43,8 +37,8 @@
 			<div id="message"></div>
 
             <div id="toolbar">
-              <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  />
-              <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add new row</a>
+              <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  onkeyup='saveValue(this);'/>
+              <!-- <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add new row</a> -->
             </div>
 			
 			<!-- Grid contents -->
@@ -61,7 +55,7 @@
 		<script src="js/master.js" ></script>
 
 		<script type="text/javascript">
-			
+		
             var datagrid = new DatabaseGrid();
 			window.onload = function() { 
 
@@ -86,6 +80,25 @@
 
         
 			}; 
+			
+			document.getElementById("filter").value = getSavedValue("filter");   // set the value to this input
+			/* Here you can add more inputs to set value. if it's saved */
+
+			//Save the value function - save it to localStorage as (ID, VALUE)
+			function saveValue(e){
+				var id = e.id;  // get the sender's id to save it . 
+				var val = e.value; // get the value. 
+				localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
+			};
+
+			//get the saved value function - return the value of "v" from localStorage. 
+			function getSavedValue  (v){
+				if (localStorage.getItem(v) === null) {
+					return "";// You can change this to your defualt value. 
+				}
+				return localStorage.getItem(v);
+			};
+		
 		</script>
 
         <!-- simple form, used to add a new row -->
