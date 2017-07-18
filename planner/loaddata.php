@@ -68,6 +68,7 @@ $grid->addColumn('product_pl', 'Product PL', 'string', NULL, false);
 $grid->addColumn('bpo', 'BPO', 'string', NULL, false);
 $grid->addColumn('plo', 'PLO', 'string', NULL, false);
 $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
+$grid->addColumn('is_copy', 'Copy#', 'integer', NULL, false);
 $grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
 $grid->addColumn('sales_area', 'Sales Area', 'string', NULL, false);
 $grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
@@ -110,7 +111,7 @@ $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablen
 $result = $mysqli->query('
 	SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated 
 	FROM master m LEFT JOIN (
-		SELECT pn AS pn_, arrival_qty, eta, remark, shortage_reason, received
+		SELECT pn AS pn_, arrival_qty, eta, remark, shortage_reason, received, is_copy
 		FROM pn p0 
 		WHERE eta=(
 			SELECT MIN(eta)
