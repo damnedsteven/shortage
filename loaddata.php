@@ -68,14 +68,14 @@ $grid->addColumn('product_pl', 'Product PL', 'string', NULL, false);
 $grid->addColumn('bpo', 'BPO', 'string', NULL, false);
 $grid->addColumn('plo', 'PLO', 'string', NULL, false);
 $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
-$grid->addColumn('is_copy', 'Copy#', 'integer', NULL, false);
+// $grid->addColumn('is_copy', 'Copy#', 'integer', NULL, false);
 $grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
 $grid->addColumn('sales_area', 'Sales Area', 'string', NULL, false);
-$grid->addColumn('shortage_qty', 'Shortage QTY', 'integer', NULL, false);
-$grid->addColumn('required_qty', 'Required QTY', 'integer', NULL, false);
+$grid->addColumn('shortage_qty', 'Shortage QTY', 'double(, 0, dot, comma, 1)', NULL, false);
+$grid->addColumn('required_qty', 'Required QTY', 'double(, 0, dot, comma, 1)', NULL, false);
 
-$grid->addColumn('filled_qty', 'Filled QTY', 'integer', NULL, false); 
-$grid->addColumn('arrival_qty', 'Supp.Q', 'integer');
+$grid->addColumn('filled_qty', 'Filled QTY', 'double(, 0, dot, comma, 1)', NULL, false); 
+$grid->addColumn('arrival_qty', 'Supp.Q', 'double(, 0, dot, comma, 1)');
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
 $grid->addColumn('remark', 'Remarks', 'string', NULL, false); 
 $grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), NULL, false); 
@@ -113,22 +113,15 @@ $result = $mysqli->query('
 	FROM master m 
 	LEFT JOIN 
 	(	
-		SELECT pn, eta, SUM(arrival_qty) sum_arrival_qty
+		SELECT pn, eta, SUM(arrival_qty) sum_arrival_qty, MIN(is_copy) is_copy
 		FROM pn
 		GROUP BY pn, eta
 	) p1
 	ON m.pn = p1.pn
 	LEFT JOIN
-	(	
-		SELECT pn, eta, MIN(is_copy) is_copy
-		FROM pn
-		GROUP BY pn, eta
-	) p2
-	ON p1.pn = p2.pn
-	LEFT JOIN
-	pn
-	ON p2.pn = pn.pn AND p2.is_copy = pn.is_copy
-	WHERE pn.received IS NOT NULL
+	pn p
+	ON p1.pn = p.pn AND p1.is_copy = p.is_copy
+	WHERE p.received IS NOT NULL
 ');
 $mysqli->close();
 
