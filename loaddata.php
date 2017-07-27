@@ -110,16 +110,25 @@ $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablen
 // $result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename);
 $result = $mysqli->query('
 	SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated 
-	FROM master m LEFT JOIN (
-		SELECT pn AS pn_, arrival_qty, eta, remark, received, carrier, judge_supply, shortage_reason, shortage_reason_detail, bill_number, delivery, delay_reason, vehicle_info, is_copy
-		FROM pn p0 
-		WHERE eta=(
-			SELECT MIN(eta)
-			FROM pn 
-			WHERE pn=p0.pn
-		)
-	) p ON m.pn=p.pn_ 
-	WHERE p.received IS NOT NULL
+	FROM master m 
+	LEFT JOIN 
+	(	
+		SELECT pn, eta, SUM(arrival_qty) sum_arrival_qty
+		FROM pn
+		GROUP BY pn, eta
+	) p1
+	ON m.pn = p1.pn
+	LEFT JOIN
+	(	
+		SELECT pn, eta, MIN(is_copy) is_copy
+		FROM pn
+		GROUP BY pn, eta
+	) p2
+	ON p1.pn = p2.pn
+	LEFT JOIN
+	pn
+	ON p2.pn = pn.pn AND p2.is_copy = pn.is_copy
+	WHERE pn.received IS NOT NULL
 ');
 $mysqli->close();
 
