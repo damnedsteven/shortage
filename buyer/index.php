@@ -31,7 +31,7 @@
 		<div id="wrap">
 		<h1>ESSN Material Shortage<a href="login/logout.php"><i class="fa fa-sign-out"></i></a></h1> 
 		
-			<p><a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a href="/shortage/importer/">Importer</a></p>
+			<p><a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a href="/shortage/importer/">Importer</a> | <a href="/shortage/updateBuyerList/">Update Buyer List</a></p>
 		
 			<!-- Feedback message zone -->
 			<div id="message"></div>

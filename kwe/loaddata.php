@@ -72,7 +72,7 @@ $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE carrier="0" AND received IS NULL AND eta=CURDATE()' );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE carrier<="1" AND received IS NULL AND eta<=ADDDATE(CURDATE(), 1)' );
 $mysqli->close();
 
 // send data to the browser
