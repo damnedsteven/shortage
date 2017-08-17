@@ -75,6 +75,7 @@ $grid->addColumn('passthru_shortage_qty', 'S-OPT', 'integer', NULL, false);
 $grid->addColumn('earliest_bkpl', 'Earliest BKPL Time              ', 'datetime', NULL, false);
 $grid->addColumn('arrival_qty', 'Supp.Q', 'double(, 0, dot, comma, 1)');
 $grid->addColumn('eta', 'ETA', 'date');
+$grid->addColumn('slot', 'Slot', 'string', array('morning', 'afternoon', 'night'));
 $grid->addColumn('remark', 'Remark      ', 'string'); 
 $grid->addColumn('carrier', 'Carrier            ', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other')); 
 $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 
@@ -91,7 +92,7 @@ $grid->addColumn('action', 'Action', 'html', NULL, false, 'id');
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE status=1 AND received IS NULL ORDER BY pn' );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE (status=1 AND received IS NULL) OR is_copy = -1 ORDER BY pn' );
 $mysqli->close();
 
 // send data to the browser

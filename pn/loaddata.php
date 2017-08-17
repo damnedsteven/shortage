@@ -74,6 +74,7 @@ $grid->addColumn('passthru_shortage_qty', 'PassThrough', 'integer', NULL, false)
 $grid->addColumn('earliest_bkpl', 'Earliest BKPL Time', 'datetime', NULL, false);
 $grid->addColumn('arrival_qty', 'Arrival QTY', 'integer');
 $grid->addColumn('eta', 'ETA', 'date');
+$grid->addColumn('slot', 'Slot', 'string', array('morning', 'afternoon', 'night'));
 $grid->addColumn('remark', 'Remarks', 'string'); 
 $grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other')); 
 $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 

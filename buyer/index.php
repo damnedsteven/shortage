@@ -38,7 +38,7 @@
 
             <div id="toolbar">
               <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  onkeyup='saveValue(this);'/>
-              <!-- <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add new row</a> -->
+              <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add urgent part</a>
             </div>
 			
 			<!-- Grid contents -->
@@ -108,9 +108,9 @@
                 <input type="text" id="pn" name="pn" placeholder="pn" />
             </div>
 
-             <div class="row">
+            <!-- <div class="row">
                 <input type="text" id="shortage_qty" name="shortage_qty" placeholder="shortage_qty" />
-            </div>
+            </div> -->
 
             <div class="row tright">
               <a id="addbutton" class="button green" ><i class="fa fa-save"></i> Apply</a>
