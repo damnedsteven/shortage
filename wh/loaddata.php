@@ -70,7 +70,7 @@ $grid->addColumn('received', '抵达时间', 'date');
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
-$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE (eta IS NOT NULL AND received IS NULL) OR is_copy = -1 ORDER BY eta' );
+$result = $mysqli->query('SELECT *, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename.' WHERE eta IS NOT NULL AND received IS NULL ORDER BY eta' );
 $mysqli->close();
 
 // send data to the browser
