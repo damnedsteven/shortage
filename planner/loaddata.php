@@ -110,7 +110,7 @@ $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablen
                                                                        
 // $result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename);
 $result = $mysqli->query('
-	SELECT m.*, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated 
+	SELECT m.*, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated, p1.*, p.*
 	FROM master m 
 	LEFT JOIN 
 	(	

@@ -111,6 +111,7 @@ $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablen
 $result = $mysqli->query('
 	SELECT m.*, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated 
 	FROM master m 
+	/*
 	LEFT JOIN 
 	(	
 		SELECT pn, eta, SUM(arrival_qty) sum_arrival_qty, MIN(is_copy) is_copy
@@ -122,6 +123,8 @@ $result = $mysqli->query('
 	pn p
 	ON p1.pn = p.pn AND p1.is_copy = p.is_copy
 	WHERE p.received IS NOT NULL
+	*/
+	WHERE m.status=0
 ');
 $mysqli->close();
 

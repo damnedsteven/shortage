@@ -39,6 +39,37 @@ if(isset($_POST['importSubmit'])){
             
             //close opened csv file
             fclose($csvFile);
+			
+			$db->query("
+					INSERT INTO pn (pn, ctrl_id, buyer_name, shortage_qty, pline_shortage_qty, passthru_shortage_qty, earliest_bkpl, lastupdated, status, is_copy)
+					SELECT
+						*,
+						now(),
+						1,
+						0
+					FROM
+					(SELECT 
+						pn, 
+						ctrl_id,
+						name,
+						SUM(shortage_qty) shortage_qty,
+						SUM(CASE WHEN pfc <> 'PassThrough' THEN shortage_qty ELSE 0 END) pline_shortage_qty,
+						SUM(CASE WHEN pfc = 'PassThrough' THEN shortage_qty ELSE 0 END) passthru_shortage_qty,
+						MIN(bkpl) earliest_bkpl
+					FROM 
+						master m
+						LEFT JOIN
+						(select id, name from buyer) b
+						ON m.ctrl_id=b.id
+					WHERE
+						status = 1
+					GROUP BY
+						pn,
+						ctrl_id,
+						name) AS t
+					ON DUPLICATE KEY UPDATE 
+						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, status=1;
+			");
 
             $qstring = '?status=succ';
         }else{
