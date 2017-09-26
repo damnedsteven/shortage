@@ -25,20 +25,20 @@
 
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" href="css/font-awesome-4.1.0/css/font-awesome.min.css" type="text/css" media="screen">
-        	</head>
+    </head>
 	
 	<body>
 		<div id="wrap">
-		<h1>ESSN Material Shortage<a href="login/logout.php"><i class="fa fa-sign-out"></i></a></h1> 
+		<h1>ESSN Material Shortage<a href="login/logout.php"><i class="fa fa-sign-out">&nbsp;&nbsp;&nbsp;&nbsp;Training Documents</i></a></h1> 
 		
-			<p><a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a href="/shortage/importer/">Importer</a> | <a href="/shortage/updateBuyerList/">Update Buyer List</a></p>
+			<a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a href="/shortage/importer/">Importer</a> | <a href="/shortage/updateBuyerList/">Update Buyer List</a> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline;">Deadline: 11:30AM & 17:30PM</h2>
 		
 			<!-- Feedback message zone -->
 			<div id="message"></div>
 
             <div id="toolbar">
               <input type="text" id="filter" name="filter" placeholder="Filter: type any text here"  onkeyup='saveValue(this);'/>
-              <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add urgent part</a>
+              <a id="showaddformbutton" class="button green"><i class="fa fa-plus"></i> Add urgent part</a>			  
             </div>
 			
 			<!-- Grid contents -->

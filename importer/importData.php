@@ -40,6 +40,10 @@ if(isset($_POST['importSubmit'])){
             //close opened csv file
             fclose($csvFile);
 			
+			//refresh all records and set their status to inactive
+			$refreshQuery = "UPDATE pn SET status = 0";
+			$db->query($refreshQuery);
+			
 			$db->query("
 					INSERT INTO pn (pn, ctrl_id, buyer_name, shortage_qty, pline_shortage_qty, passthru_shortage_qty, earliest_bkpl, lastupdated, status, is_copy)
 					SELECT
