@@ -72,7 +72,7 @@ if(isset($_POST['importSubmit'])){
 						ctrl_id,
 						name) AS t
 					ON DUPLICATE KEY UPDATE 
-						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, status=1;
+						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, received=NULL, status=1;
 			");
 
             $qstring = '?status=succ';
