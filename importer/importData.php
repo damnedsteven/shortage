@@ -72,7 +72,19 @@ if(isset($_POST['importSubmit'])){
 						ctrl_id,
 						name) AS t
 					ON DUPLICATE KEY UPDATE 
-						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, received=NULL, status=1;
+						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, status=1,
+						arrival_qty = CASE WHEN received<>NULL THEN NULL END,
+						eta = CASE WHEN received<>NULL THEN NULL END,
+						slot = CASE WHEN received<>NULL THEN NULL END,
+						remark = CASE WHEN received<>NULL THEN NULL END,
+						carrier = CASE WHEN received<>NULL THEN NULL END,
+						shortage_reason = CASE WHEN received<>NULL THEN NULL END,
+						shortage_reason_detail = CASE WHEN received<>NULL THEN NULL END,
+						bill_number = CASE WHEN received<>NULL THEN NULL END,
+						delivery = CASE WHEN received<>NULL THEN NULL END,
+						delay_reason = CASE WHEN received<>NULL THEN NULL END,
+						vehicle_info = CASE WHEN received<>NULL THEN NULL END,
+						received = CASE WHEN received<>NULL THEN NULL END;
 			");
 
             $qstring = '?status=succ';
