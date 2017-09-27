@@ -73,18 +73,20 @@ if(isset($_POST['importSubmit'])){
 						name) AS t
 					ON DUPLICATE KEY UPDATE 
 						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, status=1,
-						arrival_qty = CASE WHEN received<>NULL THEN NULL END,
-						eta = CASE WHEN received<>NULL THEN NULL END,
-						slot = CASE WHEN received<>NULL THEN NULL END,
-						remark = CASE WHEN received<>NULL THEN NULL END,
-						carrier = CASE WHEN received<>NULL THEN NULL END,
-						shortage_reason = CASE WHEN received<>NULL THEN NULL END,
-						shortage_reason_detail = CASE WHEN received<>NULL THEN NULL END,
-						bill_number = CASE WHEN received<>NULL THEN NULL END,
-						delivery = CASE WHEN received<>NULL THEN NULL END,
-						delay_reason = CASE WHEN received<>NULL THEN NULL END,
-						vehicle_info = CASE WHEN received<>NULL THEN NULL END,
-						received = CASE WHEN received<>NULL THEN NULL END;
+						arrival_qty = CASE WHEN received IS NOT NULL THEN NULL ELSE arrival_qty END,
+						eta = CASE WHEN received IS NOT NULL THEN NULL ELSE eta END,
+						slot = CASE WHEN received IS NOT NULL THEN NULL ELSE slot END,
+						remark = CASE WHEN received IS NOT NULL THEN NULL ELSE remark END,
+						carrier = CASE WHEN received IS NOT NULL THEN NULL ELSE carrier END,
+						judge_supply = CASE WHEN received IS NOT NULL THEN NULL ELSE judge_supply END,
+						is_overdue = CASE WHEN received IS NOT NULL THEN NULL ELSE is_overdue END,
+						shortage_reason = CASE WHEN received IS NOT NULL THEN NULL ELSE shortage_reason END,
+						shortage_reason_detail = CASE WHEN received IS NOT NULL THEN NULL ELSE shortage_reason_detail END,
+						bill_number = CASE WHEN received IS NOT NULL THEN NULL ELSE bill_number END,
+						delivery = CASE WHEN received IS NOT NULL THEN NULL ELSE delivery END,
+						delay_reason = CASE WHEN received IS NOT NULL THEN NULL ELSE delay_reason END,
+						vehicle_info = CASE WHEN received IS NOT NULL THEN NULL ELSE vehicle_info END,
+						received = CASE WHEN received IS NOT NULL THEN NULL ELSE received END;
 			");
 
             $qstring = '?status=succ';
