@@ -31,7 +31,7 @@
   if ($handle = opendir($dir)) {
     while (false !== ($file = readdir($handle))) {
       if ($file != "." && $file != "..") {
-        $thelist .= '<li><a href="'.$dir.$file.'">'.$file.'</a><a href="delete.php?file='.$file.'"><img src="images/delete.gif" width="15"></a></li>';
+        $thelist .= '<li><a href="'.$dir.$file.'">'.$file.'</a></li>';
       }
     }
     closedir($handle);
