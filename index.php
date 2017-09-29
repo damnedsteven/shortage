@@ -25,13 +25,13 @@
 
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" href="css/font-awesome-4.1.0/css/font-awesome.min.css" type="text/css" media="screen">
-        	</head>
+    </head>
 	
 	<body>
 		<div id="wrap">
-		<h1>ESSN Material Shortage<a href="login/logout.php"><i class="fa fa-sign-out"></i></a></h1> 
+		<h1>ESSN Material Shortage<a target = '_blank' href="/shortage/importer/"><i class="fa fa-sign-out">&nbsp;&nbsp;&nbsp;&nbsp;Import</i></a></h1> 
 		
-			<p><a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a href="/shortage/importer/">Importer</a></p>
+			<p><a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a></p>
 		
 			<!-- Feedback message zone -->
 			<div id="message"></div>

@@ -29,9 +29,9 @@
 	
 	<body>
 		<div id="wrap">
-		<h1>ESSN Material Shortage<a href="/shortage/lab/simple/upload.php"><i class="fa fa-sign-out">&nbsp;&nbsp;&nbsp;&nbsp;Training Documents</i></a></h1> 
+		<h1>ESSN Material Shortage<a target = '_blank' href="/shortage/lab/simple/upload.php"><i class="fa fa-sign-out">&nbsp;&nbsp;&nbsp;&nbsp;Training Documents</i></a></h1> 
 		
-			<a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a href="/shortage/importer/">Importer</a> | <a href="/shortage/updateBuyerList/">Update Buyer List</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline;">Deadline: 11:30AM & 17:30PM</h2>
+			<a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a> | <a target = '_blank' href="/shortage/updateBuyerList/">Update Buyer List</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h2 style="display: inline;">Deadline: 11:30AM & 17:30PM</h2>
 		
 			<!-- Feedback message zone -->
 			<div id="message"></div>

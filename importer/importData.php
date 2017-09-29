@@ -88,6 +88,11 @@ if(isset($_POST['importSubmit'])){
 						vehicle_info = CASE WHEN received IS NOT NULL THEN NULL ELSE vehicle_info END,
 						received = CASE WHEN received IS NOT NULL THEN NULL ELSE received END;
 			");
+			
+			$db->query("
+					UPDATE pn SET status = 1, received = NULL
+					WHERE pn IN (SELECT pn FROM (SELECT * FROM pn) AS p WHERE status = 1);
+			");
 
             $qstring = '?status=succ';
         }else{
