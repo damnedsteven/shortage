@@ -124,7 +124,9 @@ $result = $mysqli->query('
 	ON p1.pn = p.pn AND p1.is_copy = p.is_copy
 	WHERE p.received IS NOT NULL
 	*/
-	WHERE m.status=0
+	WHERE 
+	-- m.status=0
+	received IS NOT NULL 
 ');
 $mysqli->close();
 

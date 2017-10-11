@@ -25,9 +25,13 @@ $return=false;
 // if ($stmt = $mysqli->prepare("INSERT INTO ".$tablename." (pn, ctrl_id, buyer_name, shortage_qty, eta, status) SELECT CONCAT(pn, '_c'), ctrl_id, buyer_name, shortage_qty, eta, 1 FROM ".$tablename." WHERE id = ?")) {
 if ($stmt = $mysqli->prepare("
 		INSERT INTO ".$tablename." (pn, is_copy, ctrl_id, buyer_name, shortage_qty, earliest_bkpl, judge_supply, status) 
-			SELECT pn, is_copy+1, ctrl_id, buyer_name, shortage_qty, earliest_bkpl, judge_supply, 1 FROM ".$tablename." WHERE id = ?
+			SELECT pn, 1+(
+				SELECT max(is_copy)
+				FROM ".$tablename."
+				WHERE pn = (SELECT pn FROM ".$tablename." WHERE id = ?)
+			), ctrl_id, buyer_name, shortage_qty, earliest_bkpl, judge_supply, 1 FROM ".$tablename." WHERE id = ?
 		")) {
-				$stmt->bind_param("i", $id);
+				$stmt->bind_param("si", $id, $id);
 				$return = $stmt->execute();
 				$stmt->close();
 			}             

@@ -72,7 +72,7 @@ $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false);
 $grid->addColumn('is_overdue', 'Overdue?', 'string', NULL, false);
 $grid->addColumn('ctrl_id', 'Ctrl ID', 'string', NULL, false);  
 $grid->addColumn('sales_area', 'Sales Area', 'string', NULL, false);
-$grid->addColumn('shortage_qty', 'Shortage QTY', 'double(, 0, dot, comma, 1)', NULL, false);
+$grid->addColumn('shortageqty', 'Shortage QTY', 'double(, 0, dot, comma, 1)', NULL, false);
 $grid->addColumn('required_qty', 'Required QTY', 'double(, 0, dot, comma, 1)', NULL, false);
 
 $grid->addColumn('filled_qty', 'Filled QTY', 'double(, 0, dot, comma, 1)', NULL, false); 
@@ -110,7 +110,7 @@ $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablen
                                                                        
 // $result = $mysqli->query('SELECT *, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(lastupdated, "%b %d %Y %h:%i %p") as lastupdated FROM '.$mydb_tablename);
 $result = $mysqli->query('
-	SELECT m.*, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated, p1.*, p.*
+	SELECT m.*, date_format(orderdate, "%d/%m/%Y") as orderdate, date_format(m.lastupdated, "%b %d %Y %h:%i %p") as lastupdated, m.shortage_qty as shortageqty,  p1.*, p.*
 	FROM master m 
 	LEFT JOIN 
 	(	
