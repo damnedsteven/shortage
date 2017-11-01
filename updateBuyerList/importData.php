@@ -14,7 +14,7 @@ if(isset($_POST['importSubmit'])){
             
             //skip first two lines
             fgetcsv($csvFile);
-			fgetcsv($csvFile);
+			// fgetcsv($csvFile);
             
 			//refresh all records and set their status to inactive
 			$refreshQuery = "UPDATE buyer SET status = 0";
@@ -22,16 +22,16 @@ if(isset($_POST['importSubmit'])){
 			
             //parse data from csv file line by line
             while(($line = fgetcsv($csvFile)) !== FALSE){
-                //check whether record already exists in database
+                // check whether record already exists in database
                 $prevQuery = "SELECT * FROM buyer WHERE id = '".$line[0]."'";
                 $prevResult = $db->query($prevQuery);
 
                 if($prevResult->num_rows > 0){
-                    //update data
+                    // update data
                     $db->query("UPDATE buyer SET name = '".$line[1]."', status = 1 WHERE id = '".$line[0]."'");
                 }else{
-                    //insert data into database
-                    $db->query("INSERT INTO buyer (id, name) VALUES ('".$line[0]."','".$line[1]."')");
+                    // insert data into database
+                    $db->query("INSERT INTO buyer (id, name, status) VALUES ('".$line[0]."','".$line[1]."', 1)");
                 }
             }
 			
@@ -50,6 +50,6 @@ if(isset($_POST['importSubmit'])){
         $qstring = '?status=invalid_file';
     }
 }
-
+var_dump($prevQuery);
 //redirect to the listing page
 header("Location: index.php".$query);

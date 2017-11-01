@@ -90,8 +90,11 @@ if(isset($_POST['importSubmit'])){
 			");
 			
 			$db->query("
-					UPDATE pn SET status = 1, received = NULL
-					WHERE pn IN (SELECT pn FROM (SELECT * FROM pn) AS p WHERE status = 1);
+					UPDATE pn SET status = 1
+					WHERE 
+					pn IN (SELECT pn FROM (SELECT * FROM pn) AS p WHERE status = 1) 
+					AND 
+					received = NULL;
 			");
 
             $qstring = '?status=succ';

@@ -47,7 +47,7 @@ if(!empty($_GET['status'])){
                 <tbody>
                 <?php
                     //get records from database
-                    $query = $db->query("SELECT * FROM buyer_list ORDER BY id");
+                    $query = $db->query("SELECT * FROM buyer ORDER BY id");
                     if($query->num_rows > 0){ 
                         while($row = $query->fetch_assoc()){ ?>
                     <tr>
