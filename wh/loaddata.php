@@ -66,7 +66,8 @@ $grid->addColumn('bill_number', '运单号     ', 'string', NULL, false);
 // $grid->addColumn('delivery', '实际送货日期', 'date', NULL, false); 
 // $grid->addColumn('vehicle_info', '到达车辆信息', 'string', NULL, false);
 $grid->addColumn('received', '抵达时间', 'date');     
-// $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);                                            
+// $grid->addColumn('lastupdated', 'Updated', 'datetime', NULL, false);     
+$grid->addColumn('action', 'Action', 'html', NULL, false, 'id');                                       
 
 $mydb_tablename = (isset($_GET['db_tablename'])) ? stripslashes($_GET['db_tablename']) : 'pn';
                                                                        
