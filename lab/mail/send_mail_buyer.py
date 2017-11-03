@@ -65,7 +65,7 @@ to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d
 	
 from_addr = 'shortage@emcn.cn'
 # to_addr = ['yi.li5@hpe.com']
-to_addr = ['yi.li5@hpe.com', 'cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com', 'joy-m.huang@hpe.com', 'hai-chuan.zhao@hpe.com', 'ivy.y.lin@hpe.com ']
+to_addr = ['yi.li5@hpe.com', 'cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com', 'joy-m.huang@hpe.com', 'hai-chuan.zhao@hpe.com', 'ivy.y.lin@hpe.com']
 
 smtp_server = 'smtp3.hpe.com'
 
@@ -171,7 +171,7 @@ msg.attach(MIMEText(text+table+text2, 'html', 'utf-8'))
 
 msg['From'] = _format_addr('Shortage Alert <%s>' % from_addr)
 msg['To'] = _format_addr('admin <%s>' % to_addr)
-msg['Subject'] = Header('For Buyer - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()
+msg['Subject'] = Header('for Buyer - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()
 
 server = smtplib.SMTP(smtp_server, 25)
 server.set_debuglevel(1)

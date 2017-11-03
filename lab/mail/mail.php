@@ -1,6 +1,6 @@
 <?php
 
-exec ("./send_mail_planner.py", $output, $return);
+exec ("python send_mail_planner.py", $output, $return);
 
 // Return will return non-zero upon an error
 if (!$return) {

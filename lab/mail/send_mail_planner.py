@@ -64,34 +64,78 @@ earlier = now - timedelta(hours=12)
 to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d') + '-' + now.strftime('%H')
 	
 from_addr = 'shortage@emcn.cn'
-to_addr = ['yi.li5@hpe.com']
-# to_addr = ['yi.li5@hpe.com', 'cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com', 'joy-m.huang@hpe.com', 'hai-chuan.zhao@hpe.com', 'ivy.y.lin@hpe.com ']
+# to_addr = ['yi.li5@hpe.com']
+to_addr = ['emcn.planning@hpe.com', 'cpmoissengineers@hpe.com', 'cpmo_essn_celestic@hpe.com', 'emcn.wh@hpe.com', 'mengyun.li@hpe.com', 'yanlin-mmsh.fei@hpe.com', 'mmsh.cto@mentormedia.com', 'cai-xiu_hu@mentormedia.com', 'yan-lin_fei@mentormedia.com', 'shirley_wang@mentormedia.com', 'meil@hpe.com', 'shirley-mmsh.wang@hpe.com', 'ipt@maitrox.com', 'taojun.sj@hpe.com', 'joy-m.huang@hpe.com']
 
 smtp_server = 'smtp3.hpe.com'
 
 query = """
 	SELECT 
-		is_copy `Copy#`,
-		pn `Part No.`,
-		ctrl_id `Ctrl ID`,
-		buyer_name `Buyer`,
-		shortage_qty `TTL-S`,
-		pline_shortage_qty `S-RAW`,
-		passthru_shortage_qty `S-OPT`,
-		earliest_bkpl `Earliest BKPL Time`,
-		arrival_qty `Supp.Q`,
-		eta `ETA`,
-		slot `Slot`,
-		remark `Remark`,
-		carrier `Carrier`,
-		judge_supply `Judge Supply?`,
-		shortage_reason `Shortage Reason (Category)`,
-		shortage_reason_detail `Shortage Reason (Comments)`,
-		bill_number `HAWB`,
-		date_format(lastupdated, "%b %d %Y %h:%i %p") `Updated`
-	FROM pn 
-	WHERE (status=1 OR is_copy = -1) AND received IS NULL 
-	ORDER BY pn
+		m.publish `Publish Time`,
+		m.pfc `PF Category`,
+		date_format(m.orderdate, "%d/%m/%Y") `Order Date`,
+		m.bkpl `BKPL Time`,
+		m.rtp `RTP Time`,
+		m.so `Sales Order`,
+		m.so_item `Sales Order Item`,
+		m.product `Product`,
+		m.product_pl `Product PL`,
+		m.bpo `BPO`,
+		m.plo `PLO`,
+		m.pn `Material Part No.`,
+		p.is_overdue `Overdue?`,
+		p.ctrl_id `Ctrl ID`,
+		m.sales_area `Sales Area`,
+		m.shortage_qty `Shortage QTY`,
+		m.required_qty `Required QTY`,
+		m.filled_qty `Filled QTY`,
+		p1.sum_arrival_qty `Supp.Q`,
+		p1.eta `ETA`,
+		p.remark `Remarks`,
+		CASE
+			WHEN p.shortage_reason = '0' THEN 'Normal Supply'
+			WHEN p.shortage_reason = '1' THEN 'Logistic issue-缺进口证'
+			WHEN p.shortage_reason = '2' THEN 'Logistic issue-捆绑有问题进口料'
+			WHEN p.shortage_reason = '3' THEN 'Logistic issue-海关查验'
+			WHEN p.shortage_reason = '4' THEN 'Logistic issue-仓单问题'
+			WHEN p.shortage_reason = '5' THEN 'Logistic issue-KWE送货延误'
+			WHEN p.shortage_reason = '6' THEN 'Logistic issue-others'
+			WHEN p.shortage_reason = '7' THEN 'Overdrop'
+			WHEN p.shortage_reason = '8' THEN 'Overdrop for weekend orders'
+			WHEN p.shortage_reason = '9' THEN 'JIT pull'
+			WHEN p.shortage_reason = '10' THEN 'HDD in local kitting relable process'
+			WHEN p.shortage_reason = '11' THEN 'Part conversion delayed'
+			WHEN p.shortage_reason = '12' THEN 'Vendor decommit delivery date'
+			WHEN p.shortage_reason = '13' THEN 'Earlier Ack date in SAP system'
+			WHEN p.shortage_reason = '14' THEN 'No reminder in SOS when schedule push out'
+			WHEN p.shortage_reason = '15' THEN 'Shipment damaged'
+			WHEN p.shortage_reason = '16' THEN 'Stock purge'
+			WHEN p.shortage_reason = '17' THEN 'BOM issue'
+			WHEN p.shortage_reason = '18' THEN 'Inventory GAP-Materials not return from 产线'
+			WHEN p.shortage_reason = '19' THEN 'Inventory GAP-Materials not locked by 产线'
+			WHEN p.shortage_reason = '20' THEN 'Inventory GAP-Materials not locked into CE by WH'
+			WHEN p.shortage_reason = '21' THEN 'Inventory GAP-Materials not locked for rework/sorting'
+			WHEN p.shortage_reason = '22' THEN 'Inventory GAP-System linkage issue/refresh issue'
+			WHEN p.shortage_reason = '23' THEN 'New shortage-materials occupied by late-drop orders'
+			WHEN p.shortage_reason = '24' THEN 'None of above'
+		END `Shortage Reason (Category)`,
+		m.received `抵达时间`,
+		date_format(m.lastupdated, "%b %d %Y %h:%i %p") `Updated`
+	FROM 
+		master m 
+		LEFT JOIN 
+		(	
+			SELECT pn, eta, SUM(arrival_qty) sum_arrival_qty, MIN(is_copy) is_copy
+			FROM pn
+			WHERE status = 1
+			GROUP BY pn, eta
+		) p1
+		ON m.pn = p1.pn
+		LEFT JOIN
+		pn p
+		ON p1.pn = p.pn AND p1.is_copy = p.is_copy
+	WHERE 
+		m.status="1"
 """
 
 text = """\
@@ -100,7 +144,7 @@ text = """\
   <body>
     <p>Hi all,<br><br>
        Here is the latest material shortage status, pls check and fill in the ETA schedule asap. Pls let <a href="mailto:taojun.sj@hpe.com">SJ, Taojun (EMCN Warehouse)</a> know if there is any wrong information.  Thanks for your attention!<br>
-       <br>请登录网页版缺料显示系统： <a href="http://16.187.228.117/shortage/buyer/">网址</a> 
+       <br>请登录网页版缺料显示系统： <a href="http://16.187.228.117/shortage/planner/">网址</a> 
     </p>
 	<br>
   </body>
@@ -130,7 +174,7 @@ msg.attach(MIMEText(text+table+text2, 'html', 'utf-8'))
 
 msg['From'] = _format_addr('Shortage Alert <%s>' % from_addr)
 msg['To'] = _format_addr('admin <%s>' % to_addr)
-msg['Subject'] = Header('For Planner - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()
+msg['Subject'] = Header('for Planner - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()
 
 server = smtplib.SMTP(smtp_server, 25)
 server.set_debuglevel(1)

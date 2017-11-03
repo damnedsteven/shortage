@@ -116,6 +116,7 @@ $result = $mysqli->query('
 	(	
 		SELECT pn, eta, SUM(arrival_qty) sum_arrival_qty, MIN(is_copy) is_copy
 		FROM pn
+		WHERE status = 1
 		GROUP BY pn, eta
 	) p1
 	ON m.pn = p1.pn
