@@ -48,7 +48,7 @@ def nlist_to_html(list2d):
 		newrow = u'<tr>' 
 		newrow += u'<td align="left" style="padding:1px 4px">'+unicode(row[0])+u'</td>'
 		row.remove(row[0])
-		newrow = newrow + ''.join([u'<td align="right" style="padding:1px 4px">' + unicode(x) + u'</td>' for x in row])  
+		newrow = newrow + ''.join([u'<td align="right" style="padding:1px 4px">' + unicode(x or "") + u'</td>' for x in row])  
 		newrow += '</tr>' 
 		htable+= newrow
 	htable += '</table>'
@@ -81,13 +81,54 @@ query = """
 		earliest_bkpl `Earliest BKPL Time`,
 		arrival_qty `Supp.Q`,
 		eta `ETA`,
-		slot `Slot`,
+		CASE
+			WHEN slot = '0' THEN 'morning'
+			WHEN slot = '1' THEN 'afternoon'
+			WHEN slot = '2' THEN 'night'
+		END `Slot`,
 		remark `Remark`,
-		carrier `Carrier`,
+		CASE
+			WHEN carrier = '0' THEN 'KWE-HPE'
+			WHEN carrier = '1' THEN 'KWE-EXTNL'
+			WHEN carrier = '2' THEN 'HUB'
+			WHEN carrier = '3' THEN '新杰'
+			WHEN carrier = '4' THEN '明德'
+			WHEN carrier = '5' THEN '迈创'
+			WHEN carrier = '6' THEN 'Planner-action'
+			WHEN carrier = '7' THEN '仓库-action'
+			WHEN carrier = '8' THEN '产线-action'
+			WHEN carrier = '9' THEN 'Other'
+		END `Carrier`,
 		judge_supply `Judge Supply?`,
-		shortage_reason `Shortage Reason (Category)`,
+		CASE
+			WHEN shortage_reason = '0' THEN 'Normal Supply'
+			WHEN shortage_reason = '1' THEN 'Logistic issue-缺进口证'
+			WHEN shortage_reason = '2' THEN 'Logistic issue-捆绑有问题进口料'
+			WHEN shortage_reason = '3' THEN 'Logistic issue-海关查验'
+			WHEN shortage_reason = '4' THEN 'Logistic issue-仓单问题'
+			WHEN shortage_reason = '5' THEN 'Logistic issue-KWE送货延误'
+			WHEN shortage_reason = '6' THEN 'Logistic issue-others'
+			WHEN shortage_reason = '7' THEN 'Overdrop'
+			WHEN shortage_reason = '8' THEN 'Overdrop for weekend orders'
+			WHEN shortage_reason = '9' THEN 'JIT pull'
+			WHEN shortage_reason = '10' THEN 'HDD in local kitting relable process'
+			WHEN shortage_reason = '11' THEN 'Part conversion delayed'
+			WHEN shortage_reason = '12' THEN 'Vendor decommit delivery date'
+			WHEN shortage_reason = '13' THEN 'Earlier Ack date in SAP system'
+			WHEN shortage_reason = '14' THEN 'No reminder in SOS when schedule push out'
+			WHEN shortage_reason = '15' THEN 'Shipment damaged'
+			WHEN shortage_reason = '16' THEN 'Stock purge'
+			WHEN shortage_reason = '17' THEN 'BOM issue'
+			WHEN shortage_reason = '18' THEN 'Inventory GAP-Materials not return from 产线'
+			WHEN shortage_reason = '19' THEN 'Inventory GAP-Materials not locked by 产线'
+			WHEN shortage_reason = '20' THEN 'Inventory GAP-Materials not locked into CE by WH'
+			WHEN shortage_reason = '21' THEN 'Inventory GAP-Materials not locked for rework/sorting'
+			WHEN shortage_reason = '22' THEN 'Inventory GAP-System linkage issue/refresh issue'
+			WHEN shortage_reason = '23' THEN 'New shortage-materials occupied by late-drop orders'
+			WHEN shortage_reason = '24' THEN 'None of above'
+		END `Shortage Reason (Category)`,
 		shortage_reason_detail `Shortage Reason (Comments)`,
-		bill_number `B/L`,
+		bill_number `HAWB`,
 		date_format(lastupdated, "%b %d %Y %h:%i %p") `Updated`
 	FROM pn 
 	WHERE (status=1 OR is_copy = -1) AND received IS NULL 
@@ -98,14 +139,16 @@ text = """\
 <html>
   <head></head>
   <body>
-    <p>Hi all<br><br>
-       Here is the latest material shortage status, pls check and reply us the ETA schedule asap. Pls let <a href="mailto:taojun.sj@hpe.com">SJ, Taojun (EMCN Warehouse)</a> know if there is any wrong information.  Thanks for your attention!<br>
+    <p>Hi all,<br><br>
+       Here is the latest material shortage status, pls check and fill in the ETA schedule asap. Pls let <a href="mailto:taojun.sj@hpe.com">SJ, Taojun (EMCN Warehouse)</a> know if there is any wrong information.  Thanks for your attention!<br>
        <br>请登录网页版缺料显示系统： <a href="http://16.187.228.117/shortage/buyer/">网址</a> 
     </p>
 	<br>
   </body>
 </html>
 """
+
+table = sql_html(query)
 
 text2 = """\
 <html>
@@ -120,18 +163,14 @@ text2 = """\
 </html>
 """
 
-table = sql_html(query)
-
 msg = MIMEMultipart()
-
-# msg.attach(MIMEText(text, 'html', 'utf-8'))
 	
 # 邮件正文是MIMEText:
 msg.attach(MIMEText(text+table+text2, 'html', 'utf-8'))
 
 
 msg['From'] = _format_addr('Shortage Alert <%s>' % from_addr)
-msg['To'] = _format_addr('buyer admin <%s>' % to_addr)
+msg['To'] = _format_addr('admin <%s>' % to_addr)
 msg['Subject'] = Header('For Buyer - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()
 
 server = smtplib.SMTP(smtp_server, 25)
