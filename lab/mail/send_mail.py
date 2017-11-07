@@ -64,10 +64,14 @@ earlier = now - timedelta(hours=12)
 to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d') + '-' + now.strftime('%H')
 	
 from_addr = 'shortage@emcn.cn'
-# to_addr = ['yi.li5@hpe.com']
-to_addr = ['cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com']
-cc_addr = ['joy-m.huang@hpe.com', 'hai-chuan.zhao@hpe.com', 'ivy.y.lin@hpe.com']
-bcc_addr = ['yi.li5@hpe.com']
+
+to_addr = ['yi.li5@hpe.com']
+
+cc_addr = ['yi.li5@hpe.com']
+
+bcc_addr = ['brooklynburgerking@gmail.com']
+
+# to_addr = ['yi.li5@hpe.com', 'cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com', 'joy-m.huang@hpe.com', 'hai-chuan.zhao@hpe.com', 'ivy.y.lin@hpe.com']
 
 smtp_server = 'smtp3.hpe.com'
 
@@ -173,8 +177,9 @@ msg.attach(MIMEText(text+table+text2, 'html', 'utf-8'))
 
 
 msg['From'] = _format_addr('Shortage Alert <%s>' % from_addr)
-# msg['To'] = _format_addr('admin <%s>' % to_addr)
+# msg['To'] = _format_addr('recipient <%s>' % ",".join(to_addr))
 msg['To'] = ", ".join(to_addr)
+# msg['CC'] = _format_addr('admin <%s>' % ",".join(cc_addr))
 msg['CC'] = ", ".join(cc_addr)
 msg['BCC'] = ", ".join(bcc_addr)
 msg['Subject'] = Header('for Buyer - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()

@@ -64,8 +64,11 @@ earlier = now - timedelta(hours=12)
 to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d') + '-' + now.strftime('%H')
 	
 from_addr = 'shortage@emcn.cn'
+
 # to_addr = ['yi.li5@hpe.com']
-to_addr = ['emcn.planning@hpe.com', 'cpmoissengineers@hpe.com', 'cpmo_essn_celestic@hpe.com', 'emcn.wh@hpe.com', 'mengyun.li@hpe.com', 'yanlin-mmsh.fei@hpe.com', 'mmsh.cto@mentormedia.com', 'cai-xiu_hu@mentormedia.com', 'yan-lin_fei@mentormedia.com', 'shirley_wang@mentormedia.com', 'meil@hpe.com', 'shirley-mmsh.wang@hpe.com', 'ipt@maitrox.com', 'taojun.sj@hpe.com', 'joy-m.huang@hpe.com']
+to_addr = ['emcn.planning@hpe.com', 'cpmoissengineers@hpe.com', 'cpmo_essn_celestic@hpe.com', 'emcn.wh@hpe.com', 'mengyun.li@hpe.com', 'yanlin-mmsh.fei@hpe.com', 'mmsh.cto@mentormedia.com', 'cai-xiu_hu@mentormedia.com', 'yan-lin_fei@mentormedia.com', 'shirley_wang@mentormedia.com', 'meil@hpe.com', 'shirley-mmsh.wang@hpe.com', 'ipt@maitrox.com', 'taojun.sj@hpe.com']
+cc_addr = ['joy-m.huang@hpe.com']
+bcc_addr = ['yi.li5@hpe.com']
 
 smtp_server = 'smtp3.hpe.com'
 
@@ -73,7 +76,7 @@ query = """
 	SELECT 
 		m.publish `Publish Time`,
 		m.pfc `PF Category`,
-		date_format(m.orderdate, "%d/%m/%Y") `Order Date`,
+		m.orderday `Order Date`,
 		m.bkpl `BKPL Time`,
 		m.rtp `RTP Time`,
 		m.so `Sales Order`,
@@ -88,7 +91,7 @@ query = """
 		m.sales_area `Sales Area`,
 		m.shortage_qty `Shortage QTY`,
 		m.required_qty `Required QTY`,
-		m.filled_qty `Filled QTY`,
+		#m.filled_qty `Filled QTY`,
 		p1.sum_arrival_qty `Supp.Q`,
 		p1.eta `ETA`,
 		p.remark `Remarks`,
@@ -143,7 +146,7 @@ text = """\
   <head></head>
   <body>
     <p>Hi all,<br><br>
-       Here is the latest material shortage status, pls check and fill in the ETA schedule asap. Pls let <a href="mailto:taojun.sj@hpe.com">SJ, Taojun (EMCN Warehouse)</a> know if there is any wrong information.  Thanks for your attention!<br>
+       Here is the latest material shortage status. Pls let <a href="mailto:taojun.sj@hpe.com">SJ, Taojun (EMCN Warehouse)</a> know if there is any wrong information.  Thanks for your attention!<br>
        <br>请登录网页版缺料显示系统： <a href="http://16.187.228.117/shortage/planner/">网址</a> 
     </p>
 	<br>
@@ -173,11 +176,15 @@ msg.attach(MIMEText(text+table+text2, 'html', 'utf-8'))
 
 
 msg['From'] = _format_addr('Shortage Alert <%s>' % from_addr)
-msg['To'] = _format_addr('admin <%s>' % to_addr)
+# msg['To'] = _format_addr('admin <%s>' % to_addr)
+msg['To'] = ", ".join(to_addr)
+msg['CC'] = ", ".join(cc_addr)
 msg['Subject'] = Header('for Planner - ESSN material shortage (%s)' % (to_date), 'utf-8').encode()
+
+to_addrs = to_addr + cc_addr + bcc_addr
 
 server = smtplib.SMTP(smtp_server, 25)
 server.set_debuglevel(1)
 #server.login(from_addr, password)
-server.sendmail(from_addr, to_addr, msg.as_string())
+server.sendmail(from_addr, to_addrs, msg.as_string())
 server.quit()

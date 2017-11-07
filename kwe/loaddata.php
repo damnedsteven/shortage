@@ -57,7 +57,7 @@ $grid = new EditableGrid();
 $grid->addColumn('pn', 'Material Part No.', 'string', NULL, false); 
 $grid->addColumn('arrival_qty', 'Arrival QTY', 'double(, 0, dot, comma, 1)', NULL, false);
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
-$grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), false); 
+$grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', '产线-relabel', 'Other'), false); 
 $grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
 $grid->addColumn('delivery', '实际送货日期', 'date');
 $grid->addColumn('delay_reason', '晚送原因', 'string');
