@@ -73,7 +73,7 @@ bcc_addr = ['yi.li5@hpe.com']
 smtp_server = 'smtp3.hpe.com'
 
 query = """
-	SELECT 
+	SELECT DISTINCT
 		m.publish `Publish Time`,
 		m.pfc `PF Category`,
 		m.orderday `Order Date`,
