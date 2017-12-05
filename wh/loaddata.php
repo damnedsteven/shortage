@@ -46,6 +46,7 @@ function fetch_pairs($mysqli,$query){
 $mysqli = mysqli_init();
 $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 $mysqli->real_connect($config['db_host'],$config['db_user'],$config['db_password'],$config['db_name']); 
+$mysqli->set_charset('utf8'); 
                     
 // create a new EditableGrid object
 $grid = new EditableGrid();
@@ -60,7 +61,7 @@ $grid->addColumn('arrival_qty', 'A-QTY', 'double(, 0, dot, comma, 1)', NULL, fal
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
 $grid->addColumn('slot', 'Slot', 'string', array('morning', 'afternoon', 'night'), NULL, false);
 // $grid->addColumn('remark', 'Remark', 'string', NULL, false); 
-$grid->addColumn('carrier', 'Carrier         ', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', '产线-relabel', 'Other'), NULL, false); 
+$grid->addColumn('id_carrier', 'Carrier            ', 'string', fetch_pairs($mysqli,'SELECT id, name FROM carrier'), true); 
 $grid->addColumn('bill_number', '运单号     ', 'string', NULL, false); 
 
 // $grid->addColumn('delivery', '实际送货日期', 'date', NULL, false); 

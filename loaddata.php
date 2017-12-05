@@ -46,6 +46,7 @@ function fetch_pairs($mysqli,$query){
 $mysqli = mysqli_init();
 $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 $mysqli->real_connect($config['db_host'],$config['db_user'],$config['db_password'],$config['db_name']); 
+$mysqli->set_charset('utf8');  
                     
 // create a new EditableGrid object
 $grid = new EditableGrid();
@@ -78,9 +79,9 @@ $grid->addColumn('filled_qty', 'Filled QTY', 'double(, 0, dot, comma, 1)', NULL,
 $grid->addColumn('arrival_qty', 'Supp.Q', 'double(, 0, dot, comma, 1)');
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
 $grid->addColumn('remark', 'Remarks', 'string', NULL, false); 
-$grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), NULL, false); 
+$grid->addColumn('id_carrier', 'Carrier', 'string', fetch_pairs($mysqli,'SELECT id, name FROM carrier'), true); 
 $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 
-$grid->addColumn('shortage_reason', 'Shortage Reason (Category)', 'string', array('Normal Supply', 'Logistic issue-缺进口证', 'Logistic issue-捆绑有问题进口料', 'Logistic issue-海关查验', 'Logistic issue-仓单问题', 'Logistic issue-KWE送货延误', 'Logistic issue-others', 'Overdrop', 'Overdrop for weekend orders', 'JIT pull', 'HDD in local kitting relable process', 'Part conversion delayed', 'Vendor decommit delivery date', 'Earlier Ack date in SAP system', 'No reminder in SOS when schedule push out', 'Shipment damaged', 'Stock purge', 'BOM issue', 'Inventory GAP-Materials not return from 产线', 'Inventory GAP-Materials not locked by 产线', 'Inventory GAP-Materials not locked into CE by WH', 'Inventory GAP-Materials not locked for rework/sorting', 'Inventory GAP-System linkage issue/refresh issue', 'New shortage-materials occupied by late-drop orders', 'None of above'), NULL, false); 
+$grid->addColumn('id_shortage_reason', 'Shortage Reason (Category)', 'string', fetch_pairs($mysqli,'SELECT id, name FROM shortage_reason'), true); 
 $grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string', NULL, false); 
 $grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
 
