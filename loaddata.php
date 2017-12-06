@@ -79,9 +79,9 @@ $grid->addColumn('filled_qty', 'Filled QTY', 'double(, 0, dot, comma, 1)', NULL,
 $grid->addColumn('arrival_qty', 'Supp.Q', 'double(, 0, dot, comma, 1)');
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
 $grid->addColumn('remark', 'Remarks', 'string', NULL, false); 
-$grid->addColumn('id_carrier', 'Carrier', 'string', fetch_pairs($mysqli,'SELECT id, name FROM carrier'), true); 
+$grid->addColumn('id_carrier', 'Carrier', 'string', fetch_pairs($mysqli,'SELECT id, name FROM carrier'), false); 
 $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 
-$grid->addColumn('id_shortage_reason', 'Shortage Reason (Category)', 'string', fetch_pairs($mysqli,'SELECT id, name FROM shortage_reason'), true); 
+$grid->addColumn('id_shortage_reason', 'Shortage Reason (Category)', 'string', fetch_pairs($mysqli,'SELECT id, name FROM shortage_reason'), false); 
 $grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string', NULL, false); 
 $grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
 

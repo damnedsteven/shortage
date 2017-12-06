@@ -82,7 +82,7 @@ $grid->addColumn('eta', 'ETA', 'date', NULL, false);
 $grid->addColumn('remark', 'Remarks', 'string', NULL, false); 
 // $grid->addColumn('carrier', 'Carrier', 'string', array('KWE-HPE', 'KWE-EXTNL', 'HUB', '新杰', '明德', '迈创', 'Planner-action', '仓库-action', '产线-action', 'Other'), NULL, false); 
 // $grid->addColumn('judge_supply', 'Judge Supply?', 'string', NULL, false); 
-$grid->addColumn('id_shortage_reason', 'Shortage Reason (Category)', 'string', fetch_pairs($mysqli,'SELECT id, name FROM shortage_reason'), true); 
+$grid->addColumn('id_shortage_reason', 'Shortage Reason (Category)', 'string', fetch_pairs($mysqli,'SELECT id, name FROM shortage_reason'), false); 
 // $grid->addColumn('shortage_reason_detail', 'Shortage Reason (Comments)', 'string', NULL, false); 
 // $grid->addColumn('bill_number', '运单号', 'string', NULL, false); 
 

@@ -26,7 +26,7 @@ def _format_addr(s):
 
 def query_mysql(query):
 	# Get data from 200 DB
-	conn = MySQLdb.connect("16.187.230.200", "yi", "asdfqwer", "shortage")
+	conn = MySQLdb.connect("16.187.230.200", "yi", "asdfqwer", "shortage", charset = 'utf8')
 	cursor = conn.cursor()	
 	cursor.execute(query)
 	#get header and rows
@@ -93,51 +93,20 @@ query = """
 			WHEN slot = '2' THEN 'night'
 		END `Slot`,
 		remark `Remark`,
-		CASE
-			WHEN carrier = '0' THEN 'KWE-HPE'
-			WHEN carrier = '1' THEN 'KWE-EXTNL'
-			WHEN carrier = '2' THEN 'HUB'
-			WHEN carrier = '3' THEN '新杰'
-			WHEN carrier = '4' THEN '明德'
-			WHEN carrier = '5' THEN '迈创'
-			WHEN carrier = '6' THEN 'Planner-action'
-			WHEN carrier = '7' THEN '仓库-action'
-			WHEN carrier = '8' THEN '产线-action'
-			WHEN carrier = '9' THEN '产线-relabel'
-			WHEN carrier = '10' THEN 'Other'
-		END `Carrier`,
+		carrier.name `Carrier`,
 		judge_supply `Judge Supply?`,
-		CASE
-			WHEN shortage_reason = '0' THEN 'Normal Supply'
-			WHEN shortage_reason = '1' THEN 'Logistic issue-缺进口证'
-			WHEN shortage_reason = '2' THEN 'Logistic issue-捆绑有问题进口料'
-			WHEN shortage_reason = '3' THEN 'Logistic issue-海关查验'
-			WHEN shortage_reason = '4' THEN 'Logistic issue-仓单问题'
-			WHEN shortage_reason = '5' THEN 'Logistic issue-KWE送货延误'
-			WHEN shortage_reason = '6' THEN 'Logistic issue-others'
-			WHEN shortage_reason = '7' THEN 'Overdrop'
-			WHEN shortage_reason = '8' THEN 'Overdrop for weekend orders'
-			WHEN shortage_reason = '9' THEN 'JIT pull'
-			WHEN shortage_reason = '10' THEN 'HDD in local kitting relable process'
-			WHEN shortage_reason = '11' THEN 'Part conversion delayed'
-			WHEN shortage_reason = '12' THEN 'Vendor decommit delivery date'
-			WHEN shortage_reason = '13' THEN 'Earlier Ack date in SAP system'
-			WHEN shortage_reason = '14' THEN 'No reminder in SOS when schedule push out'
-			WHEN shortage_reason = '15' THEN 'Shipment damaged'
-			WHEN shortage_reason = '16' THEN 'Stock purge'
-			WHEN shortage_reason = '17' THEN 'BOM issue'
-			WHEN shortage_reason = '18' THEN 'Inventory GAP-Materials not return from 产线'
-			WHEN shortage_reason = '19' THEN 'Inventory GAP-Materials not locked by 产线'
-			WHEN shortage_reason = '20' THEN 'Inventory GAP-Materials not locked into CE by WH'
-			WHEN shortage_reason = '21' THEN 'Inventory GAP-Materials not locked for rework/sorting'
-			WHEN shortage_reason = '22' THEN 'Inventory GAP-System linkage issue/refresh issue'
-			WHEN shortage_reason = '23' THEN 'New shortage-materials occupied by late-drop orders'
-			WHEN shortage_reason = '24' THEN 'None of above'
-		END `Shortage Reason (Category)`,
+		shortage_reason.name `Shortage Reason (Category)`,
 		shortage_reason_detail `Shortage Reason (Comments)`,
 		bill_number `HAWB`,
 		date_format(lastupdated, "%b %d %Y %h:%i %p") `Updated`
-	FROM pn 
+	FROM 
+		pn 
+		LEFT JOIN 
+		carrier
+		ON pn.id_carrier=carrier.id
+		LEFT JOIN
+		shortage_reason
+		ON pn.id_shortage_reason=shortage_reason.id
 	WHERE (status=1 OR is_copy = -1) AND received IS NULL 
 	ORDER BY pn
 """

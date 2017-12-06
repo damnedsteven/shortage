@@ -61,7 +61,7 @@ $grid->addColumn('arrival_qty', 'A-QTY', 'double(, 0, dot, comma, 1)', NULL, fal
 $grid->addColumn('eta', 'ETA', 'date', NULL, false);
 $grid->addColumn('slot', 'Slot', 'string', array('morning', 'afternoon', 'night'), NULL, false);
 // $grid->addColumn('remark', 'Remark', 'string', NULL, false); 
-$grid->addColumn('id_carrier', 'Carrier            ', 'string', fetch_pairs($mysqli,'SELECT id, name FROM carrier'), true); 
+$grid->addColumn('id_carrier', 'Carrier            ', 'string', fetch_pairs($mysqli,'SELECT id, name FROM carrier'), false); 
 $grid->addColumn('bill_number', '运单号     ', 'string', NULL, false); 
 
 // $grid->addColumn('delivery', '实际送货日期', 'date', NULL, false); 

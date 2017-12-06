@@ -26,7 +26,7 @@ def _format_addr(s):
 
 def query_mysql(query):
 	# Get data from 200 DB
-	conn = MySQLdb.connect("16.187.230.200", "yi", "asdfqwer", "shortage")
+	conn = MySQLdb.connect("16.187.230.200", "yi", "asdfqwer", "shortage", charset = 'utf8')
 	cursor = conn.cursor()	
 	cursor.execute(query)
 	#get header and rows
@@ -95,32 +95,7 @@ query = """
 		p1.sum_arrival_qty `Supp.Q`,
 		p1.eta `ETA`,
 		p.remark `Remarks`,
-		CASE
-			WHEN p.shortage_reason = '0' THEN 'Normal Supply'
-			WHEN p.shortage_reason = '1' THEN 'Logistic issue-缺进口证'
-			WHEN p.shortage_reason = '2' THEN 'Logistic issue-捆绑有问题进口料'
-			WHEN p.shortage_reason = '3' THEN 'Logistic issue-海关查验'
-			WHEN p.shortage_reason = '4' THEN 'Logistic issue-仓单问题'
-			WHEN p.shortage_reason = '5' THEN 'Logistic issue-KWE送货延误'
-			WHEN p.shortage_reason = '6' THEN 'Logistic issue-others'
-			WHEN p.shortage_reason = '7' THEN 'OM Check'
-			WHEN p.shortage_reason = '8' THEN 'JIT pull'
-			WHEN p.shortage_reason = '9' THEN 'HDD in local kitting relable process'
-			WHEN p.shortage_reason = '10' THEN 'Part conversion delayed'
-			WHEN p.shortage_reason = '11' THEN 'Vendor decommit delivery date'
-			WHEN p.shortage_reason = '12' THEN 'Earlier Ack date in SAP system'
-			WHEN p.shortage_reason = '13' THEN 'No reminder in SOS when schedule push out'
-			WHEN p.shortage_reason = '14' THEN 'Shipment damaged'
-			WHEN p.shortage_reason = '15' THEN 'Stock purge'
-			WHEN p.shortage_reason = '16' THEN 'BOM issue'
-			WHEN p.shortage_reason = '17' THEN 'Inventory GAP-Materials not return from 产线'
-			WHEN p.shortage_reason = '18' THEN 'Inventory GAP-Materials not locked by 产线'
-			WHEN p.shortage_reason = '19' THEN 'Inventory GAP-Materials not locked into CE by WH'
-			WHEN p.shortage_reason = '20' THEN 'Inventory GAP-Materials not locked for rework/sorting'
-			WHEN p.shortage_reason = '21' THEN 'Inventory GAP-System linkage issue/refresh issue'
-			WHEN p.shortage_reason = '22' THEN 'New shortage-materials occupied by late-drop orders'
-			WHEN p.shortage_reason = '23' THEN 'None of above'
-		END `Shortage Reason (Category)`,
+		shortage_reason.name `Shortage Reason (Category)`,
 		m.received `抵达时间`,
 		date_format(m.lastupdated, "%b %d %Y %h:%i %p") `Updated`
 	FROM 
@@ -136,6 +111,9 @@ query = """
 		LEFT JOIN
 		pn p
 		ON p1.pn = p.pn AND p1.is_copy = p.is_copy
+		LEFT JOIN
+		shortage_reason
+		ON p.id_shortage_reason=shortage_reason.id
 	WHERE 
 		m.status="1"
 """
