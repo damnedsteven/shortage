@@ -41,11 +41,7 @@ if(isset($_POST['importSubmit'])){
             fclose($csvFile);
 			
 			//refresh all records and set their status to inactive
-			$refreshQuery = "	UPDATE pn SET status = 0, lastupdated = now();
-								UPDATE pn SET status = 1, lastupdated = now()
-								WHERE 
-								pn IN (SELECT pn FROM master WHERE status = 1);
-			";
+			$refreshQuery = "UPDATE pn SET status = 0";
 			$db->query($refreshQuery);
 			
 			$db->query("
@@ -76,30 +72,38 @@ if(isset($_POST['importSubmit'])){
 						ctrl_id,
 						name) AS t
 					ON DUPLICATE KEY UPDATE 
-						shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl,
-						arrival_qty = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE arrival_qty END,
-						eta = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE eta END,
-						slot = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE slot END,
-						remark = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE remark END,
-						carrier = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE carrier END,
-						judge_supply = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE judge_supply END,
-						is_overdue = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE is_overdue END,
-						shortage_reason = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE shortage_reason END,
-						shortage_reason_detail = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE shortage_reason_detail END,
-						bill_number = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE bill_number END,
-						delivery = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE delivery END,
-						delay_reason = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE delay_reason END,
-						vehicle_info = CASE WHEN received IS NOT NULL OR status=0 THEN NULL ELSE vehicle_info END,
-						received = NULL END;
+						ctrl_id=t.ctrl_id, buyer_name=t.name, shortage_qty=t.shortage_qty, pline_shortage_qty=t.pline_shortage_qty, passthru_shortage_qty=t.passthru_shortage_qty, earliest_bkpl=t.earliest_bkpl, status=1,
+						arrival_qty = CASE WHEN received IS NOT NULL THEN NULL ELSE arrival_qty END,
+						eta = CASE WHEN received IS NOT NULL THEN NULL ELSE eta END,
+						slot = CASE WHEN received IS NOT NULL THEN NULL ELSE slot END,
+						remark = CASE WHEN received IS NOT NULL THEN NULL ELSE remark END,
+						id_carrier = CASE WHEN received IS NOT NULL THEN NULL ELSE id_carrier END,
+						judge_supply = CASE WHEN received IS NOT NULL THEN NULL ELSE judge_supply END,
+						is_overdue = CASE WHEN received IS NOT NULL THEN NULL ELSE is_overdue END,
+						id_shortage_reason = CASE WHEN received IS NOT NULL THEN NULL ELSE id_shortage_reason END,
+						shortage_reason_detail = CASE WHEN received IS NOT NULL THEN NULL ELSE shortage_reason_detail END,
+						bill_number = CASE WHEN received IS NOT NULL THEN NULL ELSE bill_number END,
+						delivery = CASE WHEN received IS NOT NULL THEN NULL ELSE delivery END,
+						delay_reason = CASE WHEN received IS NOT NULL THEN NULL ELSE delay_reason END,
+						vehicle_info = CASE WHEN received IS NOT NULL THEN NULL ELSE vehicle_info END,
+						received = CASE WHEN received IS NOT NULL THEN NULL ELSE received END;
 			");
 			
-			// $db->query("
-					// UPDATE pn SET status = 1, lastupdated = now()
-					// WHERE 
-					// pn IN (SELECT pn FROM (SELECT * FROM pn) AS p WHERE status = 1) 
-					// AND 
-					// received IS NULL;
-			// ");
+			$db->query("
+					UPDATE pn SET status = 1, lastupdated = now()
+					WHERE 
+					pn IN (SELECT pn FROM (SELECT * FROM pn) AS p WHERE status = 1) 
+					AND 
+					received IS NULL;
+			");
+			
+			$db->query("
+					UPDATE pn SET received = date(now())
+					WHERE 
+					pn NOT IN (SELECT pn FROM master WHERE status = 1)
+					AND
+					received IS NULL;
+			");
 
             $qstring = '?status=succ';
         }else{

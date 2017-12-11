@@ -16,6 +16,7 @@ require_once('config.php');
 $mysqli = mysqli_init();
 $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 $mysqli->real_connect($config['db_host'],$config['db_user'],$config['db_password'],$config['db_name']); 
+$mysqli->set_charset('utf8');   
                       
 // Get all parameters provided by the javascript
 $colname = $mysqli->real_escape_string(strip_tags($_POST['colname']));

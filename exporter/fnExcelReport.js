@@ -1,7 +1,7 @@
 function fnExcelReport() {
 	var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
 	var textRange; var j=0;
-	tab = document.getElementById('master'); // id of table
+	tab = document.getElementById('major'); // id of table
 
 	for(j = 0 ; j < tab.rows.length ; j++) 
 	{     
@@ -23,7 +23,7 @@ function fnExcelReport() {
 		txtArea1.document.write(tab_text);
 		txtArea1.document.close();
 		txtArea1.focus(); 
-		sa=txtArea1.document.execCommand("SaveAs",true,"ESSN_Shortage.xls");
+		sa=txtArea1.document.execCommand("SaveAs",true,"shortage.xls");
 	}  
 	else                 //other browser not tested on IE 11
 		sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  

@@ -29,7 +29,10 @@
 	
 	<body>
 		<div id="wrap">
-		<h1>ESSN Material Shortage<a target = '_blank' href="/shortage/importer/"><i class="fa fa-sign-out">&nbsp;&nbsp;&nbsp;&nbsp;Import</i></a></h1> 
+		<h1>ESSN Material Shortage
+			<a target = '_blank' href="/shortage/importer/"><i class="fa fa-sign-in">Import</i></a>
+			<a target = '_blank' href="/shortage/exporter/"><i class="fa fa-sign-out">Export&nbsp;&nbsp;&nbsp;&nbsp;</i></a>
+		</h1> 
 		
 			<p><a href="/shortage/">Summary</a> | <a href="/shortage/planner/">Planner</a> | <a href="/shortage/buyer/">Buyer</a> | <a href="/shortage/kwe/">KWE</a> | <a href="/shortage/wh/">WH</a></p>
 		

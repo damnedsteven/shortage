@@ -104,6 +104,14 @@ if(isset($_POST['importSubmit'])){
 					AND
 					received IS NULL;
 			");
+			
+			$db->query("
+					UPDATE master SET received = date(now())
+					WHERE 
+					status <> 1
+					AND
+					received IS NULL;
+			");
 
             $qstring = '?status=succ';
         }else{
