@@ -72,7 +72,7 @@
 			echo '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
 
 			echo '<iframe id="txtArea1" style="display:none"></iframe>';
-			echo '<button id="btnExport" onclick="fnExcelReport();"> EXPORT </button>';
+			echo '<button type="button" id="btnExport" onclick="fnExcelReport();"> EXPORT </button>';
 		echo '</form>';
 	echo '</div>';
 	
@@ -163,7 +163,7 @@
 		  echo '<th>Ctrl ID</th>';
 		  echo '<th>Sales Area</th>';
 		  echo '<th data-tsorter="numeric">Shortage QTY</th>';
-		  echo '<th data-tsorter="numeric">>Required QTY</th>';
+		  echo '<th data-tsorter="numeric">Required QTY</th>';
 		  echo '<th data-tsorter="numeric">Supp.Q</th>';
 		  echo '<th>ETA</th>';
 		  echo '<th>Remarks</th>';
@@ -176,6 +176,7 @@
 		  echo '<th>晚送原因</th>';
 		  echo '<th>到达车辆信息</th>';
 		  echo '<th>抵达时间</th>';
+		  echo '<th>自动抵达时间</th>';
 		  echo '<th>Updated</th>';
 		echo '</tr>';
 		echo '</thead>';
@@ -321,6 +322,11 @@
 				}
 				if (isset($row['received'])) {
 					echo '<td>'.$row['received'].'</td>';
+				} else {
+					echo '<td>TBD</td>';
+				}
+				if (isset($row['auto_received'])) {
+					echo '<td>'.$row['auto_received'].'</td>';
 				} else {
 					echo '<td>TBD</td>';
 				}

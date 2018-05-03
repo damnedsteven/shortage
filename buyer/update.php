@@ -49,7 +49,11 @@ if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ? WHERE 
 if ( $stmt = $mysqli->prepare("CALL p($id)")) {
 	$stmt->execute();
 	$stmt->close();
-}      
+}    
+if ( $stmt = $mysqli->prepare("CALL q($id)")) {
+	$stmt->execute();
+	$stmt->close();
+}     
 if ( $stmt = $mysqli->prepare("
 	SELECT
 		pn,

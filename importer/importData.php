@@ -78,8 +78,8 @@ if(isset($_POST['importSubmit'])){
 						slot = CASE WHEN received IS NOT NULL THEN NULL ELSE slot END,
 						remark = CASE WHEN received IS NOT NULL THEN NULL ELSE remark END,
 						id_carrier = CASE WHEN received IS NOT NULL THEN NULL ELSE id_carrier END,
-						judge_supply = CASE WHEN received IS NOT NULL THEN NULL ELSE judge_supply END,
-						is_overdue = CASE WHEN received IS NOT NULL THEN NULL ELSE is_overdue END,
+						#judge_supply = CASE WHEN received IS NOT NULL THEN NULL ELSE judge_supply END,
+						#is_overdue = CASE WHEN received IS NOT NULL THEN NULL ELSE is_overdue END,
 						id_shortage_reason = CASE WHEN received IS NOT NULL THEN NULL ELSE id_shortage_reason END,
 						shortage_reason_detail = CASE WHEN received IS NOT NULL THEN NULL ELSE shortage_reason_detail END,
 						bill_number = CASE WHEN received IS NOT NULL THEN NULL ELSE bill_number END,
@@ -106,7 +106,7 @@ if(isset($_POST['importSubmit'])){
 			");
 			
 			$db->query("
-					UPDATE master SET received = date(now())
+					UPDATE master SET received = date(now()), auto_received = date(now())
 					WHERE 
 					status <> 1
 					AND

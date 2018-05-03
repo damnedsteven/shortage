@@ -66,7 +66,7 @@ to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d
 from_addr = 'shortage@emcn.cn'
 
 # to_addr = ['yi.li5@hpe.com']
-to_addr = ['emcn.planning@hpe.com', 'cpmoissengineers@hpe.com', 'cpmo_essn_celestic@hpe.com', 'emcn.wh@hpe.com', 'mengyun.li@hpe.com', 'yanlin-mmsh.fei@hpe.com', 'mmsh.cto@mentormedia.com', 'cai-xiu_hu@mentormedia.com', 'yan-lin_fei@mentormedia.com', 'shirley_wang@mentormedia.com', 'meil@hpe.com', 'shirley-mmsh.wang@hpe.com', 'ipt@maitrox.com', 'taojun.sj@hpe.com']
+to_addr = ['emcn.planning@hpe.com', 'cpmoissengineers@hpe.com', 'cpmo_essn_celestic@hpe.com', 'emcn.wh@hpe.com', 'mengyun.li@hpe.com', 'yanlin-mmsh.fei@hpe.com', 'mmsh.cto@mentormedia.com', 'cai-xiu_hu@mentormedia.com', 'yan-lin_fei@mentormedia.com', 'shirley_wang@mentormedia.com', 'meil@hpe.com', 'shirley-mmsh.wang@hpe.com', 'ipt@maitrox.com', 'taojun.sj@hpe.com', 'qin-wen.yao@hpe.com']
 cc_addr = ['joy-m.huang@hpe.com']
 bcc_addr = ['yi.li5@hpe.com']
 

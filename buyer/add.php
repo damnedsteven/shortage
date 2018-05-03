@@ -22,7 +22,7 @@ $pn = $mysqli->real_escape_string(strip_tags($_POST['pn']));
 $tablename = $mysqli->real_escape_string(strip_tags($_POST['tablename']));
 
 $return=false;
-if ( $stmt = $mysqli->prepare("INSERT INTO ".$tablename."  (pn, is_copy) VALUES (  ?, -1)")) {
+if ( $stmt = $mysqli->prepare("INSERT INTO ".$tablename."  (pn, is_copy, status) VALUES (  ?, -FLOOR(RAND()*(9-0)+0), 1)")) {
 
 	$stmt->bind_param("s", $pn);
     $return = $stmt->execute();

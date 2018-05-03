@@ -16,7 +16,7 @@ require_once('config.php');
 $mysqli = mysqli_init();
 $mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 $mysqli->real_connect($config['db_host'],$config['db_user'],$config['db_password'],$config['db_name']); 
-$mysqli->set_charset('utf8'); 
+$mysqli->set_charset('utf8');   
                       
 // Get all parameters provided by the javascript
 $colname = $mysqli->real_escape_string(strip_tags($_POST['colname']));
@@ -37,7 +37,7 @@ if ($coltype == 'date') {
 
 // This very generic. So this script can be used to update several tables.
 $return=false;
-if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ?, status = 0 WHERE id = ?")) {
+if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ? WHERE id = ?")) {
 	$stmt->bind_param("si",$value, $id);
 	$return = $stmt->execute();
 	$stmt->close();
@@ -46,7 +46,7 @@ if ( $stmt = $mysqli->prepare("UPDATE ".$tablename." SET ".$colname." = ?, statu
 	// $return = $stmt->execute();
 	// $stmt->close();
 // }
-if ( $stmt = $mysqli->prepare("CALL q($id)")) {
+if ( $stmt = $mysqli->prepare("CALL p($id)")) {
 	$stmt->execute();
 	$stmt->close();
 }      
