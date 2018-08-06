@@ -63,7 +63,7 @@ earlier = now - timedelta(hours=12)
 # from_date = earlier.strftime('%y') + '/' + earlier.strftime('%m') + '/' + earlier.strftime('%d') + '-' + earlier.strftime('%H')
 to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d') + '-' + now.strftime('%H')
 	
-from_addr = 'shortage@emcn.cn'
+from_addr = 'shortage@emcn.com'
 
 to_addr = ['yi.li5@hpe.com']
 

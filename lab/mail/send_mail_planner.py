@@ -63,7 +63,7 @@ earlier = now - timedelta(hours=12)
 # from_date = earlier.strftime('%y') + '/' + earlier.strftime('%m') + '/' + earlier.strftime('%d') + '-' + earlier.strftime('%H')
 to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d') + '-' + now.strftime('%H')
 	
-from_addr = 'shortage@emcn.cn'
+from_addr = 'shortage@emcn.com'
 
 # to_addr = ['yi.li5@hpe.com']
 to_addr = ['emcn.planning@hpe.com', 'cpmoissengineers@hpe.com', 'cpmo_essn_celestic@hpe.com', 'emcn.wh@hpe.com', 'mengyun.li@hpe.com', 'yanlin-mmsh.fei@hpe.com', 'mmsh.cto@mentormedia.com', 'cai-xiu_hu@mentormedia.com', 'yan-lin_fei@mentormedia.com', 'shirley_wang@mentormedia.com', 'meil@hpe.com', 'shirley-mmsh.wang@hpe.com', 'ipt@maitrox.com', 'taojun.sj@hpe.com', 'qin-wen.yao@hpe.com']

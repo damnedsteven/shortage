@@ -63,9 +63,9 @@ earlier = now - timedelta(hours=12)
 # from_date = earlier.strftime('%y') + '/' + earlier.strftime('%m') + '/' + earlier.strftime('%d') + '-' + earlier.strftime('%H')
 to_date = now.strftime('%y') + '/' + now.strftime('%m') + '/' + now.strftime('%d') + '-' + now.strftime('%H')
 	
-from_addr = 'shortage@emcn.cn'
+from_addr = 'shortage@emcn.com'
 # to_addr = ['yi.li5@hpe.com']
-to_addr = ['cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com']
+to_addr = ['cpmo-iss-buyer@hpe.com', 'zhou@hpe.com', 'cpmo-iss-planner@hpe.com', 'taojun.sj@hpe.com', 'jie.ouyang@hpe.com']
 cc_addr = ['joy-m.huang@hpe.com', 'hai-chuan.zhao@hpe.com', 'ivy.y.lin@hpe.com']
 bcc_addr = ['yi.li5@hpe.com']
 
